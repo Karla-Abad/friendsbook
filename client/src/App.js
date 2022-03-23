@@ -1,19 +1,8 @@
-import "./App.css";
-import { Router } from "@reach/router";
-import Login from "./components/Login";
-import Registration from "./components/Registration";
-import About from "./components/About";
+import { Person } from "@material-ui/icons";
+import Profile from "./pages/profile/Profile";
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Login path="/login" default />
-        <Registration path="/register" />
-        <About path="/about" />
-      </Router>
-    </div>
-  );
+  return <Profile />;
 }
 
 export default App;
