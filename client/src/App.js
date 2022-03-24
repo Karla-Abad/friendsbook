@@ -12,5 +12,6 @@ function App() {
       {/* <Profile /> */}
     </>
   )
+}
 
 export default App;
