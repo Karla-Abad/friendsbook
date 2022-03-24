@@ -1,8 +1,6 @@
 import "./rightbar.css";
 
-const Rightbar = (props) => {
-  const { profile } = props;
-
+const Rightbar = ({ profile }) => {
   const HomeRightbar = () => {
     return (
       <>
@@ -98,11 +96,11 @@ const Rightbar = (props) => {
         <h4 className="rightbarTitle">User Information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">City:</span>
+            <span className="rightbarInfoKey">Current City:</span>
             <span className="rightbarInfoValue">Miami</span>
           </div>
           <div className="rightbarInfoItem">
-            <span className="rightbarInfoKey">From:</span>
+            <span className="rightbarInfoKey">Hometown:</span>
             <span className="rightbarInfoValue">Guayaquil</span>
           </div>
           <div className="rightbarInfoItem">
@@ -152,7 +150,7 @@ const Rightbar = (props) => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        <ProfileRightbar />
+        {profile ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );
