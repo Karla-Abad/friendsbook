@@ -11,6 +11,7 @@ import Home from "./pages/home/Home";
       {/* <Profile /> */}
     </>
   )
+}
 
 
 export default App;
