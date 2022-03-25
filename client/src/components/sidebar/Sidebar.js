@@ -1,5 +1,9 @@
 import "./sidebar.css";
 import { RssFeed, ChatBubbleOutline, PlayCircleFilledOutlined, Group, Bookmark, HelpOutline, WorkOutline, Event, School } from '@material-ui/icons'
+import CloseFriends from "../closeFriends/CloseFriends";
+
+//Delete this import once we have server/db data up and running: -jackson
+import { Users } from '../../dummyData'
 
 const Sidebar = (props) => {
 
@@ -49,18 +53,14 @@ const Sidebar = (props) => {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/users/6.jpg" alt="user" />
-            <span className="sidebarFriendName">Wan Chang</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/users/5.jpg" alt="user" />
-            <span className="sidebarFriendName">Erica Meechum</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/users/4.jpg" alt="user" />
-            <span className="sidebarFriendName">Idris Elba</span>
-          </li>
+          {/* Created new component <CloseFriends/> that will hold the list data for our list of user's close friends */}
+          {
+            Users.map((user) => (
+              < CloseFriends key={user.id} user={user} />
+            ))
+          }
+
+
 
         </ul>
       </div>

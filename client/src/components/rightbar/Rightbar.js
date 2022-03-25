@@ -1,6 +1,12 @@
 import "./rightbar.css";
 
+//delete this import once we have real data
+import { Users } from '../../dummyData'
+import Online from "../online/Online";
+
 const Rightbar = ({ profile }) => {
+
+  //Updated HomeRightBar to display data from dummyData.js Delete imports once we have our server/db up and running: -Jackson 
   const HomeRightbar = () => {
     return (
       <>
@@ -15,76 +21,13 @@ const Rightbar = ({ profile }) => {
         <h4 className="rightbarTitle">Online Friends</h4>
 
         <ul className="rightbarFriendList">
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                src="/assets/users/5.jpg"
-                alt=""
-                className="rightbarProfileImg"
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Erica Meechum</span>
-          </li>
+          {/* Mapping through our list of users to dynamically display the users online. We created an Online component that holds the data/formatting for that user: -Jackson  */}
+          {
+            Users.map((user) => (
+              <Online key={user.id} user={user} />
+            ))
+          }
 
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                src="/assets/users/2.jpg"
-                alt=""
-                className="rightbarProfileImg"
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Dillon French</span>
-          </li>
-
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                src="/assets/users/3.jpg"
-                alt=""
-                className="rightbarProfileImg"
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Tom</span>
-          </li>
-
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                src="/assets/users/4.jpg"
-                alt=""
-                className="rightbarProfileImg"
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Idris Elba</span>
-          </li>
-
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                src="/assets/users/6.jpg"
-                alt=""
-                className="rightbarProfileImg"
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Wan Chang</span>
-          </li>
-          <li className="rightbarFriend">
-            <div className="rightbarProfileImgContainer">
-              <img
-                src="/assets/users/7.jpg"
-                alt=""
-                className="rightbarProfileImg"
-              />
-              <span className="rightbarOnline"></span>
-            </div>
-            <span className="rightbarUsername">Claire Thompson</span>
-          </li>
         </ul>
       </>
     );
