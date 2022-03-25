@@ -23,6 +23,7 @@ module.exports = {
             })
     },
 
+
     login: (req, res) =>{
         User.findOne({email: req.body.email})
         .then((userRecord)=>{
@@ -71,15 +72,37 @@ module.exports = {
         })
         .catch((err)=>{
             console.log(err)
-            res.status(400).json({message: ""})
+            res.status(400).json({message: "Invalid Attempt"})
         })
     },
+
 
     logout: (req, res) =>{
         console.log("Logging out")
         res.clearCookie("usertoken")
         res.json({message: "Logged out"})
-    }
+    },
+
+
+    userLoggedIn: (req, res) =>{
+        User.findOne({_id: req.jwtpayload.id})
+        .then((user)=>{
+            console.log(user)
+            res.json(user)
+        })
+        .catch((err)=>{
+            console.log(err)
+            res.json(err)
+        })
+    },
+
+
+    // update user
+
+
+
+    // delete user?
+
 }
 
 
