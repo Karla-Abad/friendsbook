@@ -2,6 +2,7 @@ import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 
 const Post = (props) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <div className="post">
       <div className="postWrapper">
