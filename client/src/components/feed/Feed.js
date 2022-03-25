@@ -2,6 +2,9 @@ import './feed.css'
 import Share from '../share/Share'
 import Post from '../post/Post'
 
+//Delete the below import, once we have server/db data to work with.
+import { Posts } from '../../dummyData'
+
 const Feed = (props) => {
 
 
@@ -9,10 +12,12 @@ const Feed = (props) => {
         <div className='feed'>
             <div className="feedWrapper">
                 <Share />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
+                {
+                    Posts.map((p) => (
+                        <Post key={p.id} post={p} />
+                    ))
+                }
+
             </div>
         </div>
     )
