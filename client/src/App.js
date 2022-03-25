@@ -7,10 +7,11 @@ import Home from "./pages/home/Home";
 function App() {
   return (
     <>
-      <Login />;
-      {/* <Home /> * /}
+      {/* <Login />; */}
+      <Home />
       {/* <Profile /> */}
     </>
-  )
+  );
+}
 
 export default App;
