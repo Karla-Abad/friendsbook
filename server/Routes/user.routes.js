@@ -1,5 +1,5 @@
-const UserController = require('../Controllers/user.controller')
-const { authenticate } = require("../config/jwt.config")
+const UserController = require("../Controllers/user.controller");
+const { authenticate } = require("../config/jwt.config");
 
 module.exports = (app) => {
     
@@ -33,3 +33,4 @@ module.exports = (app) => {
     app.put("/api/users/:id/unfollow", UserController.unfollowUser)
 
 }
+

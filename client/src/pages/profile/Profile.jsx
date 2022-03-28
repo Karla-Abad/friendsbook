@@ -6,6 +6,7 @@ import "./profile.css";
 
 
 export default function Profile() {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <>
     <Topbar/>
@@ -14,8 +15,8 @@ export default function Profile() {
       <div className="profileRight">
         <div className="profileRightTop">
           <div className="profileCover">
-          <img className="profileCoverImg" src="assets/posts/post4.jpg" alt="" />
-          <img className="profileUserImg" src="assets/users/7.jpg" alt="" />
+          <img className="profileCoverImg" src={`${PF}posts/post4.jpg`} alt="" />
+          <img className="profileUserImg" src={`${PF}users/7.jpg`} alt="" />
           </div>
           <div className="profileInfo">
             <h4 className="profileInfoName">Karla Abad</h4>
