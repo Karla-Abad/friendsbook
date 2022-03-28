@@ -8,12 +8,13 @@ const UserSchema = new mongoose.Schema({
         required: [true,"Username is required"],
         minLength: [3,"Username must be at least 3 characters"],
         maxLength: [20,"Username must not be more than 20 characters"],
-        unique: true
+        unique: true    // will test for unique; according to docs creates unique index
+                        // may not catch uppercase vs lowercase
     },
     email:{
         type: String,
         required: [true,"Email is required"],
-        max: 50,
+        maxlength: 50,    // UPDATED: max is used for only numbers and dates; maxlength is for strings
         unique: true
     },
     password:{
