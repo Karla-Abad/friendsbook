@@ -1,12 +1,13 @@
 import "./rightbar.css";
 
 //delete this import once we have real data
-import { Users } from '../../dummyData'
+import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
 const Rightbar = ({ profile }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  //Updated HomeRightBar to display data from dummyData.js Delete imports once we have our server/db up and running: -Jackson 
+  //Updated HomeRightBar to display data from dummyData.js Delete imports once we have our server/db up and running: -Jackson
   const HomeRightbar = () => {
     return (
       <>
@@ -22,12 +23,9 @@ const Rightbar = ({ profile }) => {
 
         <ul className="rightbarFriendList">
           {/* Mapping through our list of users to dynamically display the users online. We created an Online component that holds the data/formatting for that user: -Jackson  */}
-          {
-            Users.map((user) => (
-              <Online key={user.id} user={user} />
-            ))
-          }
-
+          {Users.map((user) => (
+            <Online key={user.id} user={user} />
+          ))}
         </ul>
       </>
     );
@@ -54,35 +52,35 @@ const Rightbar = ({ profile }) => {
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
           <div className="rightbarFollowing">
-            <img src="assets/users/3.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/3.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/2.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/2.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/4.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/4.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/5.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/5.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/6.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/6.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/1.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/7.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/2.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/2.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
           <div className="rightbarFollowing">
-            <img src="assets/users/3.jpg" className="rightbarFollowingImg" />
+            <img src={`${PF}users/3.jpg`} className="rightbarFollowingImg" />
             <span className="rightbarFollowingName">John Doe</span>
           </div>
         </div>
