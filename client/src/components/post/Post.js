@@ -5,8 +5,10 @@ import { useState } from "react";
 
 const Post = (props) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  //^^link to our path to our temp photos/stock photos
   //We will use this Folder URL to have the app find the photos from our dummydata file from different components.-Karla
   //Create a .env file inside client folder with this: REACT_APP_PUBLIC_FOLDER = http://localhost:3000/assets/
+
 
   const { post } = props;
 
@@ -24,18 +26,15 @@ const Post = (props) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              className="postProfileImg"
-              src={
-                Users.filter((user) => user.id === post.userId)[0]
-                  .profilePicture
-              }
-              alt=""
-            />
+
+
+            {/* Presently, our feed Post Pics havent been updated to include the below image. That will be updated once pulling from server-side. -jackson  */}
+            <img className="postProfileImg" src={Users.filter((user) => user.id === post?.userId)[0].profilePicture} alt="" />
+
 
             {/* Filtering my list of users from dummy data, where the user id === the post.userid, then calling the index of 0.username to get this specific user's name */}
             <span className="postUsername">
-              {Users.filter((user) => user.id === post.userId)[0].username}
+              {Users.filter((user) => user.id === post?.userId)[0].username}
             </span>
             <span className="postDate">{post.date}</span>
           </div>
@@ -53,18 +52,10 @@ const Post = (props) => {
         <div className="postBottom">
           <div className="postBottomLeft">
             {/* Created likeHandler/onClick, to handle our user's number of likes : -jackson  */}
-            <img
-              className="likeIcon"
-              src={`${PF}like.png`}
-              onClick={likeHandler}
-              alt=""
-            />
-            <img
-              className="likeIcon"
-              src={`${PF}heart.png`}
-              onClick={likeHandler}
-              alt=""
-            />
+
+            <img className="likeIcon" src={`${PF}like.png`} onClick={likeHandler} alt="" />
+            <img className="likeIcon" src={`${PF}heart.png`} onClick={likeHandler} alt="" />
+
 
             <span className="postLikeCounter">{like} people liked it.</span>
           </div>
