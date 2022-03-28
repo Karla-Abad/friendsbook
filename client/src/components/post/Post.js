@@ -7,8 +7,7 @@ import { useState } from "react";
 const Post = (props) => {
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  //Not sure what the above line is or is doing. I dont recall adding this. inside our .env file, its just a variable for a route.
-  //REACT_APP_PUBLIC_FOLDER = http://localhost:3000/assets/
+  //^^link to our path to our temp photos/stock photos
 
   const { post } = props
 
@@ -27,11 +26,12 @@ const Post = (props) => {
         <div className="postTop">
           <div className="postTopLeft">
 
-            <img className="postProfileImg" src={Users.filter((user) => user.id === post.userId)[0].profilePicture} alt="" />
+            {/* Presently, our feed Post Pics havent been updated to include the below image. That will be updated once pulling from server-side. -jackson  */}
+            <img className="postProfileImg" src={Users.filter((user) => user.id === post?.userId)[0].profilePicture} alt="" />
 
             {/* Filtering my list of users from dummy data, where the user id === the post.userid, then calling the index of 0.username to get this specific user's name */}
             <span className="postUsername">
-              {Users.filter((user) => user.id === post.userId)[0].username}
+              {Users.filter((user) => user.id === post?.userId)[0].username}
             </span>
             <span className="postDate">{post.date}</span>
 
@@ -44,14 +44,14 @@ const Post = (props) => {
         <div className="postCenter">
           {/* Since some of the dummy Post data we are using doesnt have a value for 'desc', we can use post?.desc and it appears that this is a type of ternary. So if post.desc is true, meaning this post has has a description, display here. if it doesnt, dont display/dont break..: -jackson */}
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={post.photo} alt="" />
+          <img className="postImg" src={PF + post.photo} alt="" />
         </div>
 
         <div className="postBottom">
           <div className="postBottomLeft">
             {/* Created likeHandler/onClick, to handle our user's number of likes : -jackson  */}
-            <img className="likeIcon" src="/assets/like.png" onClick={likeHandler} alt="" />
-            <img className="likeIcon" src="/assets/heart.png" onClick={likeHandler} alt="" />
+            <img className="likeIcon" src={`${PF}like.png`} onClick={likeHandler} alt="" />
+            <img className="likeIcon" src={`${PF}heart.png`} onClick={likeHandler} alt="" />
 
             <span className="postLikeCounter">{like} people liked it.</span>
 
