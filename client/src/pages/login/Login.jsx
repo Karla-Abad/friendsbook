@@ -2,7 +2,7 @@ import "./login.css"
 import React, {useContext, useRef} from 'react';
 import { loginCall } from "../../serverCalls";
 import { AuthContext } from "../../context/AuthContext";
-
+import {CircularProgress} from "@material-ui/core"
 
 export default function Login() {
 
@@ -30,10 +30,10 @@ export default function Login() {
                 <form className="loginBox" onSubmit={handleLogin}>
                     <input type="email" required ref={email} placeholder="Email" className="loginInput" />
                     <input type="password" required minLength="6" ref={password} placeholder="Password" className="loginInput" />
-                    <button className="loginButton">Log In</button>
+                    <button className="loginButton" type="submit" disabled={isFetching}>{isFetching ? <CircularProgress  size="20px"/>: "Log In"}</button>
                     <span className="loginForgot">Forgot Password?</span>
                     <hr/>
-                    <button className="loginRegisterButton">Create a New Account</button>
+                    <button className="loginRegisterButton">{isFetching ? <CircularProgress  size="20px"/>: "Create A New Account"}</button>
                 </form>
             </div>
         </div>
