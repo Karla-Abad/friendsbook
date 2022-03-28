@@ -98,51 +98,57 @@ module.exports = {
 
 
     // update user
-
+    
 
 
     // delete user?
+    deleteUser: (req, res) =>{
+        if(req.body.user._id === req.params._id || req.body.isAdmin){
+            User.deleteOne({_id: req.params.id})
+                .then((deletedUser)=>{
+                    console.log(deletedUser)
+                    res.json(deletedUser)
+                })
+                .catch((err)=>{
+                    console.log("Somethig went wrong. Could not delete user.")
+                    res.status(400).json(err)
+                })
+        } else {
+            return res.status(403).json("You can only delete your own account")
+        }
+    }, //End Bracket
+
+
+    // findOneUser
+    findOneUser: (req, res) => {
+        User.findById({_id: req.params.id})
+            .then((foundUser)=>{
+                console.log((foundUser))
+                res.json(foundUser)
+            })
+            .catch((err)=>{
+                console.log("Search Failed")
+                res.json({message: "Something went wrong trying to find user", error: err})
+            })
+    },
+
+    // findAllUsers
+    findAllUsers: (req, res) => {
+        User.find()
+            .then((allUsers)=>{
+                console.log(allUsers)
+                res.json(allUsers)
+            })
+            .catch((err)=>{
+                console.log("Find All Users Failed")
+                res.json({message: "Something went wrong trying to find all users", error: err})
+            })
+    }
+
+
+
 
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// module.exports = {
-
-//     register: (req, res)=>{
-//         // use the req data and the User Model contructor to create a user object
-
-
-
-//         //info is alread in the instance of THIS object. no need to pass anything in
-//         // save is an instance method. doesn't require anything passed in
-//         // create is static and takes the object as the parameter.
-
-//         user.save()
-//             .then((newUser)=>{
-//                 console.log(newUser);
-//                 console.log("Successfully Registered")
-//                 res.json({
-//                     successMessage: "Thank you for registering",
-//                     user: newUser
-//                 });
-//             })
-//             .catch((err)=>{
-//                 console.log("Register not successfull")
-//                 res.status(400).json(err);
-//             })
-//     },
-// }
