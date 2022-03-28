@@ -98,6 +98,21 @@ module.exports = {
 
 
     // update user
+    updateUser: (req, res) =>{
+        const decodedJwt = jwt.decode(req.cookies.usertoken, {complete: true})
+        User.findOneAndUpdate({_id: decodedJwt.payload.id},
+            req.body,
+            {new:true, runValidators:true}
+            )
+            .then((updatedUser)=>{
+                console.log(updatedUser)
+                res.json(updatedUser)
+            })
+            .catch((err)=>{
+                console.log("Failed to update user")
+                res.status(400).json({message: "Something went wrong with update.", error: err})
+            })
+    },
     
 
 

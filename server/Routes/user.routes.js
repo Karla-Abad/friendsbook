@@ -12,7 +12,7 @@ module.exports = (app) => {
     app.get("/api/users/lock",authenticate, UserController.userLoggedIn)
 
     // updateUser
-    // app.put("/api/users/:id", UserController.updateUser)
+    app.put("/api/users/:id", UserController.updateUser)
     
     // deleteUser
     app.delete("/api/users/:id", UserController.deleteUser)
