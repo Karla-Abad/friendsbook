@@ -9,10 +9,10 @@ export const loginCall = (userCredentials, dispatch) => {
       {
         email: userCredentials.email,
         password: userCredentials.password,
-      },
-      {
-        withCredentials: true,
       }
+      //   {
+      //     withCredentials: true,
+      //   }
     )
     .then((res) => {
       console.log(res, "res");
@@ -21,7 +21,7 @@ export const loginCall = (userCredentials, dispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      console.log(err.res.data);
+      //   console.log(err.res);
       dispatch({ type: "LOGIN_FAILURE", payload: err });
     });
 };
