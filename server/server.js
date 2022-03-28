@@ -11,13 +11,17 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(cookieParser());
 
 // Config
-require("./Config/mongoose.config");
-// routes
-require("./Routes/user.routes")(app);
 
-app.listen(process.env.MY_PORT, () =>
-  console.log(`You are connected to port ${process.env.MY_PORT}!`)
-);
+require('./Config/mongoose.config')
+
+// routes
+require("./Routes/user.routes")(app)
+require("./Routes/post.routes")(app)
+
+
+app.listen(process.env.MY_PORT, ()=> console.log(`You are connected to port ${process.env.MY_PORT}!`))
+
+
 
 // require('dotenv').config()
 // const express = require('express')

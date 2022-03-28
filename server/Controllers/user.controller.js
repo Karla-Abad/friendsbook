@@ -116,22 +116,26 @@ module.exports = {
     
 
 
-    // delete user?
+    // delete user -- in progress -- currently working -- retest to validate
     deleteUser: (req, res) =>{
-        if(req.body.user._id === req.params._id || req.body.isAdmin){
-            User.deleteOne({_id: req.params.id})
-                .then((deletedUser)=>{
+        User.findOneAndDelete({_id: req.params.id})
+            .then((deletedUser)=>{
+                if(deletedUser.id === req.params.id || req.body.isAdmin){
                     console.log(deletedUser)
-                    res.json(deletedUser)
+                    res.clearCookie("usertoken")
+                    console.log("Profile deleted successfully")
+                    res.json("Profile has been deleted")
+                    
+                } else {
+                    return res.status(403).json("You can only delete your own account")
+                }
                 })
-                .catch((err)=>{
-                    console.log("Somethig went wrong. Could not delete user.")
-                    res.status(400).json(err)
-                })
-        } else {
-            return res.status(403).json("You can only delete your own account")
-        }
-    }, //End Bracket
+            .catch((err)=>{
+                console.log("Somethig went wrong. Could not delete user.")
+                res.status(400).json(err)
+            })
+        
+    }, 
 
 
     // findOneUser
@@ -158,7 +162,18 @@ module.exports = {
                 console.log("Find All Users Failed")
                 res.json({message: "Something went wrong trying to find all users", error: err})
             })
-    }
+    },
+
+    // follow a user
+    followUser: (req, res)=>{
+
+    },
+
+
+    // unfollow a user
+    unfollowUser: (req, res)=>{
+
+    },
 
 
 
