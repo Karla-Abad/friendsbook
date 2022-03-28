@@ -162,7 +162,18 @@ module.exports = {
                 console.log("Find All Users Failed")
                 res.json({message: "Something went wrong trying to find all users", error: err})
             })
-    }
+    },
+
+    // follow a user
+    followUser: (req, res)=>{
+
+    },
+
+
+    // unfollow a user
+    unfollowUser: (req, res)=>{
+
+    },
 
 
 
