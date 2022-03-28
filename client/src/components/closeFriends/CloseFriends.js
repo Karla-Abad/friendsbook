@@ -1,9 +1,8 @@
-import './closeFriends.css'
+import "./closeFriends.css";
 
 const CloseFriends = (props) => {
-
-    const { user } = props
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user } = props;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     //^^link to our path to our temp photos/stock photos (PF = public folder)
 
 
@@ -15,3 +14,4 @@ const CloseFriends = (props) => {
     )
 }
 export default CloseFriends
+

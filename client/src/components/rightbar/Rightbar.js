@@ -1,10 +1,12 @@
 import "./rightbar.css";
 
 //delete this import once we have real data
-import { Users } from '../../dummyData'
+import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
 const Rightbar = ({ profile }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
 
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -26,12 +28,9 @@ const Rightbar = ({ profile }) => {
 
         <ul className="rightbarFriendList">
           {/* Mapping through our list of users to dynamically display the users online. We created an Online component that holds the data/formatting for that user: -Jackson  */}
-          {
-            Users.map((user) => (
-              <Online key={user.id} user={user} />
-            ))
-          }
-
+          {Users.map((user) => (
+            <Online key={user.id} user={user} />
+          ))}
         </ul>
       </>
     );
@@ -58,6 +57,7 @@ const Rightbar = ({ profile }) => {
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
           <div className="rightbarFollowing">
+
             <img src={`${PF}users/3.jpg`} className="rightbarFollowingImg" alt="" />
             <span className="rightbarFollowingName">John1 Doe</span>
           </div>
@@ -88,6 +88,7 @@ const Rightbar = ({ profile }) => {
           <div className="rightbarFollowing">
             <img src={`${PF}users/3.jpg`} className="rightbarFollowingImg" alt="" />
             <span className="rightbarFollowingName">John8 Doe</span>
+
           </div>
         </div>
       </>

@@ -7,6 +7,7 @@ export default function Topbar() {
 
   return (
     <div className="topbarContainer">
+
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: "none" }}>
           <span className="logo">Friendsbook</span>
@@ -19,6 +20,7 @@ export default function Topbar() {
             placeholder="Search for friends, posts or videos."
             className="searchInput"
           />
+
         </div>
       </div>
       <div className="topbarRight">

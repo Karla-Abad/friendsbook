@@ -27,6 +27,7 @@ export default function Profile() {
               <h4 className="profileInfoName">Karla Abad</h4>
               <span className="profileInfoDesc">Hello my friends!</span>
             </div>
+
           </div>
           <div className="profileRightBottom">
             {/* Note that currently the feed user photos are not loading. this will be updated once pulling data from server-side. -jackson  */}

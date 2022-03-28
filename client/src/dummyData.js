@@ -1,8 +1,8 @@
-//Once we have our server up and running, 
-//We need to delete this file and clean files where it is used. 
-
+//Once we have our server up and running,
+//We need to delete this file and clean files where it is used.
 
 export const Users = [
+
     {
         id: 1,
         profilePicture: "users/1.jpg",
@@ -53,16 +53,15 @@ export const Users = [
         profilePicture: "users/3.jpg",
         username: "Safak Kocaoglu",
     },
+
 ];
 
-
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //---------------------------------------------------------------
-
-
 
 export const Posts = [
+
     {
         id: 1,
         desc: "Love For All, Hatred For None.",
@@ -148,3 +147,4 @@ export const Posts = [
         comment: 12,
     },
 ];
+
