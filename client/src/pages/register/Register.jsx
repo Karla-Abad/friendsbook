@@ -10,7 +10,7 @@ export default function Register() {
     const confirmPassword = useRef();
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleRegistration = (e) => {
         e.preventDefault();
         if (confirmPassword.current.value !== password.current.value){
             confirmPassword.current.setCustomValidity("Passwords must match!!");
@@ -42,7 +42,7 @@ export default function Register() {
                 <span className="loginDesc">Its fast and easy.</span>
             </div>
             <div className="loginRight">
-                <form className="loginBox" onSubmit={handleLogin}>
+                <form className="loginBox" onSubmit={handleRegistration}>
                     <input placeholder="Username" required ref={username} className="loginInput" />
                     <input type="email" placeholder="Email" required ref={email} className="loginInput" />
                     <input type="password" minLength="6" placeholder="Password" required ref={password} className="loginInput" />
