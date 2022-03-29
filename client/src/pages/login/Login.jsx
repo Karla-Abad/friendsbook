@@ -10,11 +10,13 @@ export default function Login() {
     const email = useRef(); 
     const password = useRef();
     const {user, isFetching, error, dispatch} = useContext(AuthContext);
+    //line 12 is calling on the information we setup in our context folder with useReducer hook instead of passing through different components.
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(email.current.value);
         loginCall({email: email.current.value, password: password.current.value}, dispatch);
+        console.log(email.current.value);
+        console.log(password.current.value);
     }
 
     console.log(user)
@@ -30,10 +32,10 @@ export default function Login() {
                 <form className="loginBox" onSubmit={handleLogin}>
                     <input type="email" required ref={email} placeholder="Email" className="loginInput" />
                     <input type="password" required minLength="6" ref={password} placeholder="Password" className="loginInput" />
-                    <button className="loginButton" type="submit" disabled={isFetching}>{isFetching ? <CircularProgress  size="20px"/>: "Log In"}</button>
+                    <button className="loginButton" type="submit" disabled={isFetching}>{isFetching ? <CircularProgress style={{'color': 'white'}} size="20px"/>: "Log In"}</button>
                     <span className="loginForgot">Forgot Password?</span>
                     <hr/>
-                    <button className="loginRegisterButton">{isFetching ? <CircularProgress  size="20px"/>: "Create A New Account"}</button>
+                    <button className="loginRegisterButton">{isFetching ? <CircularProgress style={{'color': 'white'}}  size="20px"/>: "Create A New Account"}</button>
                 </form>
             </div>
         </div>

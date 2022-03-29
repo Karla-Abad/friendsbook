@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
-function App() {
+const App = () => {
   const { user } = useContext(AuthContext);
   return (
     <BrowserRouter>
@@ -24,6 +24,6 @@ function App() {
     //Logic for routes:
     // If there is a user logged in, you can go to your Home page, otherwise will be redirected to Login page. - Karla
   );
-}
+};
 
 export default App;
