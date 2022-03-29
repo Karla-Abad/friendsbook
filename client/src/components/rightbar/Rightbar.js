@@ -6,10 +6,6 @@ import Online from "../online/Online";
 
 const Rightbar = ({ profile }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
-
-
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   //^^link to our path to our temp photos/stock photos (PF = public folder)
   //Updated HomeRightBar to display data from dummyData.js Delete imports once we have our server/db up and running: -Jackson 
 

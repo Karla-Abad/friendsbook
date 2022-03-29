@@ -1,9 +1,9 @@
 import "./online.css";
 
 const Online = (props) => {
-  const { user } = props;
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  //^^link to our path to our temp photos/stock photos
+    const { user } = props;
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    //^^link to our path to our temp photos/stock photos
 
     return (
         <li className="rightbarFriend">
