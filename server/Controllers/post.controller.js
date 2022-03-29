@@ -1,4 +1,3 @@
-const { rmSync } = require("fs")
 const Post = require("../Models/post.model")
 const User = require("../Models/user.model")
 
