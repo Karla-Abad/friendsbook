@@ -1,7 +1,13 @@
 import "./post.css";
 import { MoreVert } from "@material-ui/icons";
-import { Users } from "../../dummyData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from 'react-router-dom'
+
+import { format } from 'timeago.js'
+//^^^: To install the above library run:  npm install timeago.js
+
+
 
 const Post = (props) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -12,8 +18,22 @@ const Post = (props) => {
 
   const { post } = props;
 
-  const [like, setLike] = useState(post.like);
+  const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+
+  const [user, setUser] = useState({})
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/users/${post.userId}`)
+      .then(res => {
+        console.log(res.data)
+        setUser(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [post.userId])
+
 
   const likeHandler = () => {
     setLike(isLiked ? like - 1 : like + 1);
@@ -22,21 +42,17 @@ const Post = (props) => {
   };
 
   return (
-    <div className="post">
+    <div className="post" >
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-
-
-            {/* Presently, our feed Post Pics havent been updated to include the below image. That will be updated once pulling from server-side. -jackson  */}
-            <img className="postProfileImg" src={Users.filter((user) => user.id === post?.userId)[0].profilePicture} alt="" />
-
-
-            {/* Filtering my list of users from dummy data, where the user id === the post.userid, then calling the index of 0.username to get this specific user's name */}
+            <Link to={`/profile/${user.username}`}>
+              <img className="postProfileImg" src={user.profilePicture || PF + "users/noAvatar.png"} alt="" />
+            </Link>
             <span className="postUsername">
-              {Users.filter((user) => user.id === post?.userId)[0].username}
+              {user.username}
             </span>
-            <span className="postDate">{post.date}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
@@ -46,7 +62,9 @@ const Post = (props) => {
         <div className="postCenter">
           {/* Since some of the dummy Post data we are using doesnt have a value for 'desc', we can use post?.desc and it appears that this is a type of ternary. So if post.desc is true, meaning this post has has a description, display here. if it doesnt, dont display/dont break..: -jackson */}
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={PF + post.photo} alt="" />
+
+          {/* NOTE: I added: "posts/" since in Postman, i put the name of a photo from one of our assests. likely will have to edit this later.  */}
+          <img className="postImg" src={PF + "posts/" + post.img} alt="" />
         </div>
 
         <div className="postBottom">
