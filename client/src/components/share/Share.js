@@ -15,9 +15,10 @@ const Share = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPost = {
-      user: user._id,
+      user: user.userId,
       desc: desc.current.value,
     };
+    console.log(newPost);
     axios
       .post(`http://localhost:8000/api/posts`, newPost)
       .then((res) => {
@@ -26,6 +27,7 @@ const Share = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    console.log(newPost);
   };
 
   return (
