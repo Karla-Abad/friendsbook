@@ -1,9 +1,14 @@
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Topbar() {
   //Added link to our Topbar Logo, now it will take you from the profile page to the home page. - jackson
+
+  const {user} = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   return (
     <div className="topbarContainer">
@@ -42,7 +47,9 @@ export default function Topbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src="/assets/users/1.jpg" alt="" className="topbarImg" />
+        <Link to={`/profile/${user.username}`}>
+          <img src={user.profilePicture ? PF + user.profilePicture : PF+"users/noAvatar.png"} alt="" className="topbarImg" />
+        </Link>
       </div>
     </div>
   );
