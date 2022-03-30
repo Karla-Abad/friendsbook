@@ -1,7 +1,7 @@
 const { rmSync } = require("fs")
 const Post = require("../Models/post.model")
 const User = require("../Models/user.model")
-
+const jwt = require("jsonwebtoken");
 
 
 module.exports = {
@@ -60,20 +60,25 @@ module.exports = {
 
     },
 
-    // like or dislike a post -- not working -- creates new object named list
+    // DL: Fixed Like/Dislike
     likeUnlikePost: (req, res) => {
+        // const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
         Post.findById({ _id: req.params.id })
-            .then((list) => {
-                console.log(list)
-                if (!likes.includes(req.body.userId)) {
-                    likes.push(req.body.userId)
-                    console.log(list)
-                    res.json({ message: "Post liked", list })
+            .then((foundPost) => {
+                console.log("Found Post: ",foundPost)
+                console.log("req.Body: ", req.body)
+                console.log("is this inside Likes?: ",req.body.userId )
+                if(!foundPost.likes.includes(req.body.userId)) {
+                    foundPost.updateOne({ $push: { likes: req.body.userId} })
+                        .then(()=>console.log("Pushed to Likes!"))
+                        .catch((err)=>console.log("Something went wrong.", err))
+                    res.json({ message: "Post liked", foundPost: foundPost })
                 }
                 else {
-                    list.likes.pull(req.body.userId) // should be pop?
-                    console.log(list)
-                    res.json({ message: "Post unliked", list })
+                    foundPost.updateOne({ $pull: { likes: req.body.userId} })
+                        .then(()=>console.log("PUlled from Likes"))
+                        .catch((err)=>console.log("Something went wrong.", err))
+                    res.json({ message: "Post unliked", foundPost: foundPost })
                 }
             })
             .catch((err) => {
