@@ -163,8 +163,59 @@ module.exports = {
   },
 
   // follow a user
-  followUser: (req, res) => {},
+  followUser: (req, res) => {
+    const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
+    const user = User.findById({_id: req.params.id})
+    const currentUser = User.findById({_id: decodedJwt.payload.id})
+
+    Promise.all([user,currentUser])
+      .then(([foundUser,loggedInUser])=>{
+        if(!foundUser.followers.includes(decodedJwt.payload.id)){
+          // console.log("payload.id", {_id:decodedJwt.payload.id} )
+          // console.log("found User: ",foundUser)
+          // console.log("logged In user: ",loggedInUser)
+          foundUser.updateOne({ $push: {followers: decodedJwt.payload.id} })
+            .then(()=>console.log("Found User Follwers: ",foundUser.followers))
+            .catch((err)=>console.log("Something went wrong ",err))
+          // console.log("follower", decodedJwt.payload.id)
+          loggedInUser.updateOne({ $push: { following: req.params.id}})
+            .then(()=>console.log("Logged In User Followings:",loggedInUser.following))
+            .catch(err=>console.log("Something went wrong ",err))
+          // console.log("following", req.params.id)
+          res.status(200).json("Followed User")
+        } else {
+          res.status(403).json("Allready Following this user.")
+        }
+      })
+      .catch((err)=>{
+        console.log("Something Went Wrong.")
+        res.status(500).json(err)
+      })
+
+  },
 
   // unfollow a user
-  unfollowUser: (req, res) => {},
+  unfollowUser: (req, res) => {
+    const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
+    const user = User.findById({_id: req.params.id})
+    const currentUser = User.findById({_id: decodedJwt.payload.id})
+
+    Promise.all([user,currentUser])
+      .then(([foundUser,loggedInUser])=>{
+        if(foundUser.followers.includes(decodedJwt.payload.id)){
+          foundUser.updateOne({ $pull: {followers: decodedJwt.payload.id} })
+            .then(()=>console.log("Found User Follwers: ",foundUser.followers))
+            .catch((err)=>console.log("Something went wrong ",err))
+          loggedInUser.updateOne({ $pull: { following: req.params.id}})
+            .then(()=>console.log("Logged In User Followings:",loggedInUser.following))
+            .catch(err=>console.log("Something went wrong ",err))
+          res.status(200).json("User Unfollowed")
+        } else {res.status(403).json("Allready Not Following this user.")}
+      })
+      .catch((err)=>{
+        console.log("Something Went Wrong.")
+        res.status(500).json(err)
+      })
+
+  },
 };
