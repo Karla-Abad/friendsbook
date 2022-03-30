@@ -22,13 +22,15 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minLength: [8, "Password MUST be at least 8 characters"],
     },
-    profilePicture: {
-      type: String,
-      default: "",
+
+    profilePicture:{
+        data: Buffer,
+        contentType:String
     },
-    coverPicture: {
-      type: String,
-      default: "",
+    coverPicture:{
+        data: Buffer,
+        contentType:String
+
     },
     followers: {
       type: Array,
