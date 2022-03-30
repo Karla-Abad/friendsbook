@@ -1,13 +1,33 @@
 import "./share.css";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
 import { AuthContext } from "../../context/AuthContext";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
+import axios from "axios";
 
 const Share = (props) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
+  const desc = useRef();
+  const [file, setFile] = useState(null);
 
   const { username } = props;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newPost = {
+      user: user._id,
+      desc: desc.current.value,
+    };
+    axios
+      .post(`http://localhost:8000/api/posts`, newPost)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -23,18 +43,24 @@ const Share = (props) => {
           />
           <input
             className="shareInput"
-            placeholder="What's on your mind?"
-            type="text"
-            name=""
+            placeholder={"What's on your mind " + user.username + "?"}
+            ref={desc}
           />
         </div>
         <hr className="shareHr" />
-        <div className="shareBottom">
+        <form onSubmit={handleSubmit} className="shareBottom">
           <div className="shareOptions">
-            <div className="shareOption">
+            <label htmlFor="file" className="shareOption">
               <PermMedia htmlColor="tomato" className="shareIcon" />
               <span className="shareOptionText">Photo / Video</span>
-            </div>
+              <input
+                type="file"
+                style={{ display: "none" }}
+                id="file"
+                accept=".png,.jpeg,.jpg"
+                onChange={(e) => setFile(e.target.files[0])} //[0] to just take one file at the time and not multiple files.-Karla
+              />
+            </label>
             <div className="shareOption">
               <Label htmlColor="blue" className="shareIcon" />
               <span className="shareOptionText">Tag</span>
@@ -48,8 +74,10 @@ const Share = (props) => {
               <span className="shareOptionText">Emojis</span>
             </div>
           </div>
-          <button className="shareButton">Share</button>
-        </div>
+          <button type="submit" className="shareButton">
+            Share
+          </button>
+        </form>
       </div>
     </div>
   );
