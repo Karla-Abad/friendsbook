@@ -4,7 +4,7 @@ import { loginCall } from "../../serverCalls";
 import { AuthContext } from "../../context/AuthContext";
 import {CircularProgress} from "@material-ui/core"
 import axios from "axios";
-
+import {useNavigate} from "react-router-dom"
 
 export default function Login() {
 
@@ -13,6 +13,7 @@ export default function Login() {
     const password = useRef();
     const {user, isFetching, error, dispatch} = useContext(AuthContext);
     //line 12 is calling on the information we setup in our context folder with useReducer hook instead of passing through different components.
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -20,6 +21,10 @@ export default function Login() {
         console.log(password.current.value);
         loginCall({email: email.current.value, password: password.current.value}, dispatch);
                         
+    }
+
+    const handleClickCreateAccount = (e) => {
+        navigate("/register");
     }
 
   return (
@@ -36,7 +41,7 @@ export default function Login() {
                     <button className="loginButton" type="submit" disabled={isFetching}>{isFetching ? <CircularProgress style={{'color': 'white'}} size="20px"/>: "Log In"}</button>
                     <span className="loginForgot">Forgot Password?</span>
                     <hr/>
-                    <button className="loginRegisterButton">{isFetching ? <CircularProgress style={{'color': 'white'}}  size="20px"/>: "Create A New Account"}</button>
+                    <button onClick={handleClickCreateAccount} className="loginRegisterButton">{isFetching ? <CircularProgress style={{'color': 'white'}}  size="20px"/>: "Create A New Account"}</button>
                 </form>
             </div>
         </div>
