@@ -2,10 +2,10 @@ const UserController = require("../Controllers/user.controller");
 const { authenticate } = require("../config/jwt.config");
 
 module.exports = (app) => {
-    
+
     // findAll Users
     app.get("/api/users", UserController.findAllUsers)
-    
+
     //register
     app.post("/api/users/register", UserController.register)
 
@@ -16,13 +16,14 @@ module.exports = (app) => {
     app.post("/api/users/logout", UserController.logout)
 
     // get current user logged in
-    app.get("/api/users/lock",authenticate, UserController.userLoggedIn)
+    app.get("/api/users/lock", authenticate, UserController.userLoggedIn)
 
     // updateUser
     app.put("/api/users/:id", UserController.updateUser)
-    
+
     // deleteUser
     app.delete("/api/users/:id", UserController.deleteUser)
+
     // findOneUser
     app.get("/api/users/:id", UserController.findOneUser)
 

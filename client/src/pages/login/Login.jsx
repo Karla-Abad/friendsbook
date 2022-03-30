@@ -1,13 +1,14 @@
-import "./login.css"
-import React, {useContext, useRef} from 'react';
+import "./login.css";
+import React, { useContext, useRef } from "react";
 import { loginCall } from "../../serverCalls";
 import { AuthContext } from "../../context/AuthContext";
-import {CircularProgress} from "@material-ui/core"
+import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import {useNavigate} from "react-router-dom"
 
-export default function Login() {
 
+export default function Login() {
+  
     //using useRef instead of useState to prevent re-rendering every time we are changing the input field - Karla
     const email = useRef(); 
     const password = useRef();
@@ -29,6 +30,7 @@ export default function Login() {
 
   return (
     <div className="login">
+
         <div className="loginWrapper">
             <div className="loginLeft">
                 <h3 className="loginLogo">Friendsbook</h3>
@@ -44,7 +46,9 @@ export default function Login() {
                     <button onClick={handleClickCreateAccount} className="loginRegisterButton">{isFetching ? <CircularProgress style={{'color': 'white'}}  size="20px"/>: "Create A New Account"}</button>
                 </form>
             </div>
+
         </div>
+      </div>
     </div>
-  )
+  );
 }

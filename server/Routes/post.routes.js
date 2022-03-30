@@ -1,4 +1,7 @@
+const { authenticate } = require("../config/jwt.config")
 const PostController = require("../Controllers/post.controller")
+const Post = require("../Models/post.model")
+const User = require('../Models/user.model')
 
 
 
@@ -25,4 +28,20 @@ module.exports = (app) => {
     // get all posts -- added for development testing
     app.get("/api/posts/all/catchThemAll", PostController.everyPost)
 
+    //get all posts from one user -- added from video3 mark: ~ 41mins
+    //Doesnt work..of course
+    // app.get('/api/posts/profile/:username', authenticate, PostController.userPosts)
+
+
+    app.get('/api/posts/profile/:username', async (req, res) => {
+        try {
+            const user = await User.findOne({ username: req.params.username })
+            const posts = await Post.find({ userId: user._id })
+            res.status(200).json(posts)
+        }
+        catch (err) {
+            res.status(500).json(err)
+            console.log(err)
+        }
+    })
 }
