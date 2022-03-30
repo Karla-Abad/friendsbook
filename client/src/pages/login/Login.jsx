@@ -16,35 +16,11 @@ export default function Login() {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // loginCall({email: email.current.value, password: password.current.value}, dispatch);
-        dispatch({ type: "LOGIN_START" });
-  console.log(user);
-  axios
-    .post(
-      "http://localhost:8000/api/users/login",
-      {
-        email: email.current.value,
-        password: password.current.value,
-      }
-      //   {
-      //     withCredentials: true,
-      //   }
-    )
-    .then((res) => {
-      console.log(res, "res");
-      console.log(res.data, "is res data!");
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-    })
-    .catch((err) => {
-      console.log(err);
-      //   console.log(err.res);
-      dispatch({ type: "LOGIN_FAILURE", payload: err });
-    });
         console.log(email.current.value);
         console.log(password.current.value);
+        loginCall({email: email.current.value, password: password.current.value}, dispatch);
+                        
     }
-
-    console.log(`User is: ${user}`)
 
   return (
     <div className="login">
