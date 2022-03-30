@@ -1,27 +1,28 @@
-const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
-const UserSchema = new mongoose.Schema({
-
+const UserSchema = new mongoose.Schema(
+  {
     username: {
-        type: String,
-        required: [true,"Username is required"],
-        minLength: [3,"Username must be at least 3 characters"],
-        maxLength: [20,"Username must not be more than 20 characters"],
-        unique: true    // will test for unique; according to docs creates unique index
-                        // may not catch uppercase vs lowercase
+      type: String,
+      required: [true, "Username is required"],
+      minLength: [3, "Username must be at least 3 characters"],
+      maxLength: [20, "Username must not be more than 20 characters"],
+      unique: true, // will test for unique; according to docs creates unique index
+      // may not catch uppercase vs lowercase
     },
-    email:{
-        type: String,
-        required: [true,"Email is required"],
-        maxlength: 50,    // UPDATED: max is used for only numbers and dates; maxlength is for strings
-        unique: true
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      maxlength: 50, // UPDATED: max is used for only numbers and dates; maxlength is for strings
+      unique: true,
     },
-    password:{
-        type:String,
-        required:[true,"Password is required"],
-        minLength:[8, "Password MUST be at least 8 characters"],
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minLength: [8, "Password MUST be at least 8 characters"],
     },
+
     profilePicture:{
         data: Buffer,
         contentType:String
@@ -29,77 +30,67 @@ const UserSchema = new mongoose.Schema({
     coverPicture:{
         data: Buffer,
         contentType:String
+
     },
-    followers:{
-        type:Array,
-        default:[]
+    followers: {
+      type: Array,
+      default: [],
     },
-    following:{
-        type:Array,
-        defualt:[]
+    following: {
+      type: Array,
+      defualt: [],
     },
-    isAdmin:{
-        type:Boolean,
-        default:false
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
     description: {
-        type: String,
-        maxLength:[50, "Max characters is 50"]
+      type: String,
+      maxLength: [50, "Max characters is 50"],
     },
     city: {
-        type:String,
-        maxLength:[50, "Max characters is 50"]
+      type: String,
+      maxLength: [50, "Max characters is 50"],
     },
-    from:{
-        type:String,
-        maxLength:[50, "Max characters is 50"]
+    from: {
+      type: String,
+      maxLength: [50, "Max characters is 50"],
     },
-    relationship:{
-        type: Number,
-        enum:[1,2,3]
-    }
-}, {timestamps: true})
+    relationship: {
+      type: Number,
+      enum: [1, 2, 3],
+    },
+  },
+  { timestamps: true }
+);
 
 // Virtual Field
 UserSchema.virtual("confirmPassword")
-    .get(()=>this._confirmPassword)
-    .set((value)=>this._confirmPassword = value)
+  .get(() => this._confirmPassword)
+  .set((value) => (this._confirmPassword = value));
 
 //middlware
-UserSchema.pre("validate", function(next){
+UserSchema.pre("validate", function (next) {
+  if (this.password !== this.confirmPassword) {
+    this.invalidate("confirmPassword", "Passwords must Match!!");
+    console.log("Passwords don't Match");
+  }
 
-    if(this.password !== this.confirmPassword){
-        this.invalidate("confirmPassword", "Passwords must Match!!")
-        console.log("Passwords don't Match")
-    }
+  next();
+});
 
-    next()
-})
+UserSchema.pre("save", function (next) {
+  console.log("In pre save");
 
-UserSchema.pre("save", function(next){
-    console.log("In pre save")
+  bcrypt.hash(this.password, 10).then((hashedPassword) => {
+    this.password = hashedPassword;
+    next();
+  });
+});
 
-    bcrypt.hash(this.password,10)
-        .then((hashedPassword) =>{
-            this.password = hashedPassword;
-            next()
-        })
-})
+const User = mongoose.model("User", UserSchema);
 
-
-const User = mongoose.model("User", UserSchema)
-
-module.exports = User
-
-
-
-
-
-
-
-
-
-
+module.exports = User;
 
 // const UserSchema = new mongoose.Schema({
 
@@ -153,11 +144,7 @@ module.exports = User
 // // Middleware
 // UserSchema.pre("validate", function(next){
 
-
-
 //     next()
 // })
-
-
 
 // module.exports = User
