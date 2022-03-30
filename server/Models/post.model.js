@@ -4,9 +4,9 @@ const mongoose = require("mongoose")
 
 const PostSchema = new mongoose.Schema({
                             // can be written to reference user -- test later once complete
-    userId: {               // user: {
-        type: String,           // type: mongoose.Schema.Types.ObjectId,
-        required: true          // ref: "User" 
+    user: {               // user: {
+        type: mongoose.Schema.Types.ObjectId,           // type: mongoose.Schema.Types.ObjectId,
+        ref: "User"          // ref: "User" 
     },                      // }
 
     desc: {

@@ -23,12 +23,12 @@ const UserSchema = new mongoose.Schema({
         minLength:[8, "Password MUST be at least 8 characters"],
     },
     profilePicture:{
-        type:String,
-        default:""
+        data: Buffer,
+        contentType:String
     },
     coverPicture:{
-        type:String,
-        default:""
+        data: Buffer,
+        contentType:String
     },
     followers:{
         type:Array,

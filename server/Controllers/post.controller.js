@@ -9,7 +9,7 @@ module.exports = {
     // create a post -- complete
     createPost: (req, res) => {
         const post = new Post(req.body)
-
+        post.user = req.jwtpayload.id
         post.save()
             .then((newPost) => {
                 console.log(newPost)
@@ -124,8 +124,8 @@ module.exports = {
 
                 .then((userLoggedIn) => {
 
-                    Post.find({ userId: userLoggedIn._id })
-                        .populate('userId', 'username')
+                    Post.find({ user: userLoggedIn._id })
+                        .populate('user', 'username')
                         .then((allPostForUser) => {
                             console.log(allPostForUser)
                             res.json(allPostForUser)

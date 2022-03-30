@@ -17,7 +17,7 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {    // cd stand for callback
+    destination: (req, file, cb) => {    // cb stand for callback
         cb(null, "public/images")
     },
     filename: (req, file, cb) => {

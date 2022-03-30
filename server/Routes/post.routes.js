@@ -8,7 +8,7 @@ const User = require('../Models/user.model')
 module.exports = (app) => {
 
     // create a post
-    app.post("/api/posts", PostController.createPost)
+    app.post("/api/posts",authenticate, PostController.createPost)
 
     // update a post
     app.put("/api/posts/:id", PostController.updatePost)
