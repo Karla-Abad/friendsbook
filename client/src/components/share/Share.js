@@ -4,12 +4,12 @@ import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons'
 
 const Share = (props) => {
 
-
+    const { username } = props
     return (
         <div className='share'>
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img className='shareProfileImg' src="/assets/users/1.jpg" alt="" />
+                    <img className='shareProfileImg' src='' alt="" />
                     <input className='shareInput' placeholder="What's on your mind?" type="text" name="" />
                 </div>
                 <hr className="shareHr" />
