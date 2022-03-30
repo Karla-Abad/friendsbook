@@ -25,17 +25,17 @@ const storage = multer.diskStorage({
     }
 })
 // filename 
-    // A function that determines the name of the uploaded file. If nothing is passed, 
-    // Multer will generate a 32 character pseudorandom hex string with no extension.
+// A function that determines the name of the uploaded file. If nothing is passed, 
+// Multer will generate a 32 character pseudorandom hex string with no extension.
 
 // takes 3 param
-    // req — The Express Request object.
-    // file — Object containing information about the processed file.
-    // callback — Callback to determine the name of the uploaded file.
+// req — The Express Request object.
+// file — Object containing information about the processed file.
+// callback — Callback to determine the name of the uploaded file.
 
 // null is for the error, destination
 
-const upload = multer({storage});
+const upload = multer({ storage });
 
 
 // upload.single
@@ -48,7 +48,7 @@ const upload = multer({storage});
 // Returns middleware that processes a single file associated with the given form field.
 // The Request object will be populated with a file object containing information about the processed file.
 
-app.post("/api/upload", upload.single("file"), (req, res) =>{
+app.post("/api/upload", upload.single("file"), (req, res) => {
     try {
         res.json("File uploaded")
     }

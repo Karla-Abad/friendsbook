@@ -1,3 +1,4 @@
+const { rmSync } = require("fs")
 const Post = require("../Models/post.model")
 const User = require("../Models/user.model")
 
@@ -112,6 +113,41 @@ module.exports = {
                 console.log(err)
                 res.status(400).json({ message: "Find every post failed.", err })
             })
-    }
+    },
+
+    //All this was added by Jackson 3/29 @ 4:30
+    //This doesnt work. keep getting TypeError
+    //originally this was built with an if check, that didnt work either
+    userPosts:
+        (req, res) => {
+            User.findOne({ username: req.params.username })
+
+                .then((userLoggedIn) => {
+
+                    Post.find({ userId: userLoggedIn._id })
+                        .populate('userId', 'username')
+                        .then((allPostForUser) => {
+                            console.log(allPostForUser)
+                            res.json(allPostForUser)
+                        })
+                        .catch(err => res.status(400).json(err))
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(400).json(400)
+                })
+        }
+    // Post.find({ userId: req.jwtpayload.id })
+    //     .populate('userId', 'username')
+    //     .then((thisUsersPosts) => {
+    //         console.log(thisUsersPosts)
+    //         res.json(thisUsersPosts)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         res.status(400).json(err)
+    //     })
+
+
 
 }
