@@ -42,7 +42,7 @@ const Post = (props) => {
   const likeHandler = () => {
     axios
       .put(`http://localhost:8000/api/posts/${post._id}/like`, {
-        userId: currentUser._id,
+        user: currentUser._id,
       })
       .then((res) => {
         console.log(res.data);
