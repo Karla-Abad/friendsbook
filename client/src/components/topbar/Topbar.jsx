@@ -3,12 +3,35 @@ import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 export default function Topbar() {
   //Added link to our Topbar Logo, now it will take you from the profile page to the home page. - jackson
 
-  const {user} = useContext(AuthContext);
+  const {user, isFetching, error, dispatch} = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const navigate = useNavigate();
+
+  const logout =(e)=> {
+    axios
+    .post("http://localhost:8000/api/users/logout",
+    {},
+    {
+      withCredentials: true,
+      credentials: "include",
+    },
+    )
+    .then((res)=> {
+        console.log(res);
+        console.log(res.data);
+        dispatch({ type: "LOGIN_FAILURE" }); //We need for the user state to change to null. This is established in useReducer cases for LOGIN_START and LOGIN_FAILURE. Tried LOGIN_START first, but since isFetching is true for that case, it would keep showing buttons as trying to get something. LOGIN_FAILURE case isFetching=False though it returns to an initial state.
+        navigate("/login")
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
 
   return (
     <div className="topbarContainer">
@@ -47,9 +70,10 @@ export default function Topbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <Link to={`/profile/${user.username}`}>
+        <Link to={`/profile/${user.userLoggedIn}`}>
           <img src={user.profilePicture ? PF + user.profilePicture : PF+"users/noAvatar.png"} alt="" className="topbarImg" />
         </Link>
+        <button className="logout" onClick={logout}>Logout</button>
       </div>
     </div>
   );

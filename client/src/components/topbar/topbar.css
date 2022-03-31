@@ -94,3 +94,12 @@
   object-fit: cover;
   cursor: pointer;
 }
+
+.logout {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+}
