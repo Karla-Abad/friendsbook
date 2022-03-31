@@ -19,7 +19,10 @@ const Feed = (props) => {
 
     username
       ? axios
-          .get(`http://localhost:8000/api/posts/profile/${username}`)
+          .get(`http://localhost:8000/api/posts/profile/${username}`, {
+            withCredentials: true,
+            credentials: "include",
+          })
           .then((res) => {
             console.log(res.data);
             setPosts(res.data);
