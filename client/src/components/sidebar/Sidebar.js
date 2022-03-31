@@ -1,21 +1,34 @@
 import "./sidebar.css";
 import { RssFeed, ChatBubbleOutline, PlayCircleFilledOutlined, Group, Bookmark, HelpOutline, WorkOutline, Event, School } from '@material-ui/icons'
 import CloseFriends from "../closeFriends/CloseFriends";
-
-//Delete this import once we have server/db data up and running: -jackson
+import { Link } from 'react-router-dom'
 import { Users } from '../../dummyData'
+import { useState } from "react";
 
 const Sidebar = (props) => {
 
+  const [isShowing, setIsShowing] = useState(false)
+  const [btnText, setBtnText] = useState('Show More')
 
+  const moreFriendsHandler = () => {
+    setIsShowing(!isShowing)
+    if (btnText === 'Show More') {
+      setBtnText('Show Less')
+    }
+    if (btnText === 'Show Less') {
+      setBtnText('Show More')
+    }
+  }
 
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span className="sidebarListItemText">Feed</span>
+            <Link to='/' style={{ textDecoration: "none" }}>
+              <RssFeed className="sidebarIcon" />
+              <span className="sidebarListItemText">Feed</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <ChatBubbleOutline className="sidebarIcon" />
@@ -46,25 +59,32 @@ const Sidebar = (props) => {
             <span className="sidebarListItemText">Events</span>
           </li>
           <li className="sidebarListItem">
+
             <School className="sidebarIcon" />
+
             <span className="sidebarListItemText">School</span>
           </li>
         </ul>
-        <button className="sidebarButton">Show More</button>
-        <hr className="sidebarHr" />
-        <ul className="sidebarFriendList">
-          {/* Created new component <CloseFriends/> that will hold the list data for our list of user's close friends */}
-          {
-            Users.map((user) => (
-              < CloseFriends key={user.id} user={user} />
-            ))
-          }
+        <button className="sidebarButton" onClick={moreFriendsHandler}>{btnText}</button>
+        {
+          isShowing
+            ? <>
+              <hr className="sidebarHr" />
+              <ul className="sidebarFriendList">
 
+                {
+                  Users.map((user) => (
+                    < CloseFriends key={user.id} user={user} />
+                  ))
+                }
+              </ul>
+            </>
+            :
+            <></>
+        }
 
-
-        </ul>
       </div>
-    </div>
+    </div >
   );
 };
 export default Sidebar;

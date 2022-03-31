@@ -23,30 +23,32 @@ const Feed = (props) => {
 
     username
       ? axios
-          .get(`http://localhost:8000/api/posts/profile/${username}`, {
-            withCredentials: true,
-            credentials: "include",
-          })
-          .then((res) => {
-            console.log(res.data);
-            setPosts(res.data);
-          })
-          .catch((err) => console.log(err))
+        .get(`http://localhost:8000/api/posts/profile/${username}`, {
+          withCredentials: true,
+          credentials: "include",
+        })
+        .then((res) => {
+          console.log(res.data);
+          setPosts(res.data);
+
+        })
+        .catch((err) => console.log(err))
       : axios
-          .get("http://localhost:8000/api/posts/all/catchThemAll")
-          .then((res) => {
-            console.log(res.data);
-            setPosts(res.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-  }, [username, user._id]);
+        .get("http://localhost:8000/api/posts/all/catchThemAll")
+        .then((res) => {
+          console.log(res.data);
+          setPosts(res.data);
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [username, user._id, posts]);
 
   return (
     <div className="feed">
       <div className="feedWrapper">
-        <Share />
+        <Share setPosts={setPosts} posts={posts} />
 
         {posts.map((p) => (
           <Post removeFromDom={removeFromDom} key={p._id} post={p} />

@@ -35,11 +35,14 @@
 
 .sidebarListItemText {
   font-weight: 300;
+  text-decoration: none;
+
   /* could make font-weight: 500; or just omit it. */
 }
 
 .sidebarIcon {
   margin-right: 15px;
+  text-decoration: none;
 }
 
 .sidebarButton {
