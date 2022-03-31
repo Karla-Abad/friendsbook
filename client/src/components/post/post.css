@@ -79,3 +79,11 @@
 .postCommentText:hover {
   border-bottom: 1px solid lightgray;
 }
+
+.deleteButton {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-size: 12px;
+  cursor: pointer;
+}

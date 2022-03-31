@@ -13,6 +13,10 @@ const Feed = (props) => {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
 
+  const removeFromDom = (postId) => {
+    setPosts(posts.filter((post) => post._id !== postId));
+  };
+
   useEffect(() => {
     // axios.get(`http://localhost:8000/api/posts/timeline/${user.id}`)
     //^^: this is likely what we will replace the 'catchThemAll' line with.
@@ -45,7 +49,7 @@ const Feed = (props) => {
         <Share />
 
         {posts.map((p) => (
-          <Post key={p._id} post={p} />
+          <Post removeFromDom={removeFromDom} key={p._id} post={p} />
         ))}
       </div>
     </div>

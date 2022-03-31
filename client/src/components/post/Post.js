@@ -1,9 +1,9 @@
 import "./post.css";
-import { MoreVert } from "@material-ui/icons";
+import { Backspace } from "@material-ui/icons";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { format } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
 //^^^: To install the above library run:  npm install timeago.js
@@ -14,13 +14,14 @@ const Post = (props) => {
   //We will use this Folder URL to have the app find the photos from our dummydata file from different components.-Karla
   //Create a .env file inside client folder with this: REACT_APP_PUBLIC_FOLDER = http://localhost:3000/assets/
 
-  const { post } = props;
+  const { post, removeFromDom } = props;
 
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
 
   const [user, setUser] = useState({});
   const { user: currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   //This will allow it to correctly display liked or unliked. Not working properly yet as axios is not finding the cur
   useEffect(() => {
@@ -55,6 +56,16 @@ const Post = (props) => {
     //isLiked is false to begin. If you click the like button, it will add one to the count, then it sets isLiked to true. This makes it so that if you click the like button a second time, now isLiked is true, so it subtracts 1 from the count.
   };
 
+  const handleDelete = (postId) => {
+    axios
+      .delete("http://localhost:8000/api/posts/" + postId)
+      .then((res) => {
+        removeFromDom(postId);
+        // navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="post">
       <div className="postWrapper">
@@ -75,7 +86,12 @@ const Post = (props) => {
             <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
-            <MoreVert />
+            <button
+              onClick={(e) => handleDelete(post._id)}
+              className="deleteButton"
+            >
+              <Backspace />
+            </button>
           </div>
         </div>
 
