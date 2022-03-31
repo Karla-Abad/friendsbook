@@ -85,13 +85,16 @@ const Post = (props) => {
             <span className="postUsername">{user.username}</span>
             <span className="postDate">{format(post.createdAt)}</span>
           </div>
+
           <div className="postTopRight">
+
             <button
               onClick={(e) => handleDelete(post._id)}
               className="deleteButton"
             >
               <Backspace />
             </button>
+
           </div>
         </div>
 

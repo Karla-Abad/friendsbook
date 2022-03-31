@@ -9,8 +9,10 @@ const Share = (props) => {
   const { user } = useContext(AuthContext);
   const desc = useRef();
   const [file, setFile] = useState(null);
+  const [text, setText] = useState('')
 
-  const { username } = props;
+
+  // const { username } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +28,9 @@ const Share = (props) => {
       })
       .then((res) => {
         console.log(res.data);
+
+        setText('')
+
       })
       .catch((err) => {
         console.log(err);
@@ -51,6 +56,8 @@ const Share = (props) => {
             placeholder={"What's on your mind " + user.userLoggedIn + "?"}
             ref={desc}
             form="post"
+            value={text}
+            onChange={e => setText(e.target.value)}
           />
         </div>
         <hr className="shareHr" />
