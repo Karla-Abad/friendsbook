@@ -55,7 +55,7 @@ export default function Profile(props) {
           </div>
           <div className="profileRightBottom">
             {/* Note that currently the feed user photos are not loading. this will be updated once pulling data from server-side. -jackson  */}
-            <Feed username={params.username} />
+            <Feed username={user.username} />
             <Rightbar profile />
           </div>
         </div>

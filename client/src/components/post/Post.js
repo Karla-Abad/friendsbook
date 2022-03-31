@@ -85,7 +85,7 @@ const Post = (props) => {
 
           {/* NOTE: I added: "posts/" since in Postman, i put the name of a photo from one of our assests. likely will have to edit this later.  */}
           {/* <img className="postImg" src={PF + "posts/post2.jpg"} alt="" /> */}
-          <img className="postImg" src={PF+post.img} alt="" />
+          <img className="postImg" src={PF + post.img} alt="" />
         </div>
 
         <div className="postBottom">
