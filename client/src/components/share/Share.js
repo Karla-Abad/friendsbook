@@ -20,7 +20,10 @@ const Share = (props) => {
     };
     console.log(newPost);
     axios
-      .post(`http://localhost:8000/api/posts`, newPost)
+      .post(`http://localhost:8000/api/posts`, newPost, {
+        withCredentials: true,
+        credentials: "include",
+      })
       .then((res) => {
         console.log(res.data);
       })
@@ -45,12 +48,13 @@ const Share = (props) => {
           />
           <input
             className="shareInput"
-            placeholder={"What's on your mind " + user.username + "?"}
+            placeholder={"What's on your mind " + user.userLoggedIn + "?"}
             ref={desc}
+            form="post"
           />
         </div>
         <hr className="shareHr" />
-        <form onSubmit={handleSubmit} className="shareBottom">
+        <form id="post" onSubmit={handleSubmit} className="shareBottom">
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
               <PermMedia htmlColor="tomato" className="shareIcon" />

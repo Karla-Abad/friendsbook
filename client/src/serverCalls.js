@@ -4,7 +4,10 @@ export const loginCall = (userCredentials, dispatch) => {
   dispatch({ type: "LOGIN_START" });
   console.log(userCredentials);
   axios
-    .post("http://localhost:8000/api/users/login", userCredentials)
+    .post("http://localhost:8000/api/users/login", userCredentials, {
+      withCredentials: true,
+      credentials: "include",
+    })
     .then((res) => {
       console.log(res, "res");
       console.log(res.data, "is res data!");

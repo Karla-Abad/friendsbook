@@ -20,9 +20,11 @@ export default function Login() {
         e.preventDefault();
         console.log(email.current.value);
         console.log(password.current.value);
+        console.log(`User: ${user}`);
         loginCall({email: email.current.value, password: password.current.value}, dispatch);
                         
     }
+    console.log(`User: ${user}`);
 
     const handleClickCreateAccount = (e) => {
         navigate("/register");
