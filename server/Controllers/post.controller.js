@@ -4,233 +4,161 @@ const User = require("../Models/user.model");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  // create a post -- complete
-  createPost: (req, res) => {
-    const post = new Post(req.body);
-    post.user = req.jwtpayload.id;
-    post
-      .save()
-      .then((newPost) => {
-        console.log(newPost);
-        res.json({
-          message: "New post created.",
-          post: newPost, // can also be written newPost -- will be key and value
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Create Post failed.", err });
-      });
-  },
+    // create a post -- complete
+    createPost: (req, res) => {
+        const post = new Post(req.body);
+        post.user = req.jwtpayload.id;
+        post
+            .save()
+            .then((newPost) => {
+                console.log(newPost);
+                res.json({
+                    message: "New post created.",
+                    post: newPost, // can also be written newPost -- will be key and value
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Create Post failed.", err });
+            });
+    },
 
-  // update a post -- complete
-  updatePost: (req, res) => {
-    Post.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-      runValidators: true,
-    })
-      .then((updatedPost) => {
-        if (User._id === req.body.userId) {
-          // import User model to define _id
-          console.log(updatedPost);
-          res.json({ message: "Post updated." });
-        } else {
-          res.json({ message: "Can only update your posts." });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Update failed.", err });
-      });
-  },
+    // update a post -- complete
+    updatePost: (req, res) => {
+        Post.findOneAndUpdate({ _id: req.params.id }, req.body, {
+            new: true,
+            runValidators: true,
+        })
+            .then((updatedPost) => {
+                if (User._id === req.body.userId) {
+                    // import User model to define _id
+                    console.log(updatedPost);
+                    res.json({ message: "Post updated." });
+                } else {
+                    res.json({ message: "Can only update your posts." });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Update failed.", err });
+            });
+    },
 
-  // delete a post --- complete
-  deletePost: (req, res) => {
-    Post.deleteOne({ _id: req.params.id })
-      .then((deletedPost) => {
-        console.log(deletedPost);
-        res.json({ message: "Post deleted" });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Delete post failed.", err });
-      });
-  },
+    // delete a post --- complete
+    deletePost: (req, res) => {
+        Post.deleteOne({ _id: req.params.id })
+            .then((deletedPost) => {
+                console.log(deletedPost);
+                res.json({ message: "Post deleted" });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Delete post failed.", err });
+            });
+    },
 
-  // DL: Fixed Like/Dislike
-  likeUnlikePost: (req, res) => {
-    // const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
-    Post.findById({ _id: req.params.id })
-      .then((foundPost) => {
-        console.log("Found Post: ", foundPost);
-        console.log("req.Body: ", req.body);
-        console.log("is this inside Likes?: ", req.body.userId);
-        if (!foundPost.likes.includes(req.body.userId)) {
-          foundPost
-            .updateOne({ $push: { likes: req.body.userId } })
-            .then(() => console.log("Pushed to Likes!"))
-            .catch((err) => console.log("Something went wrong.", err));
-          res.json({ message: "Post liked", foundPost: foundPost });
-        } else {
-          foundPost
-            .updateOne({ $pull: { likes: req.body.userId } })
-            .then(() => console.log("PUlled from Likes"))
-            .catch((err) => console.log("Something went wrong.", err));
-          res.json({ message: "Post unliked", foundPost: foundPost });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Like / unlike failed.", err });
-      });
-  },
+    // DL: Fixed Like/Dislike
+    likeUnlikePost: (req, res) => {
+        Post.findById({ _id: req.params.id })
+            .then((foundPost) => {
+                console.log("Found Post: ", foundPost);
+                console.log("req.Body: ", req.body);
+                console.log("is this inside Likes?: ", req.body.userId);
+                if (!foundPost.likes.includes(req.body.userId)) {
+                    foundPost
+                        .updateOne({ $push: { likes: req.body.userId } })
+                        .then(() => console.log("Pushed to Likes!"))
+                        .catch((err) => console.log("Something went wrong.", err));
+                    res.json({ message: "Post liked", foundPost: foundPost });
+                } else {
+                    foundPost
+                        .updateOne({ $pull: { likes: req.body.userId } })
+                        .then(() => console.log("PUlled from Likes"))
+                        .catch((err) => console.log("Something went wrong.", err));
+                    res.json({ message: "Post unliked", foundPost: foundPost });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Like / unlike failed.", err });
+            });
+    },
 
-  // get a post -- complete
-  onePost: (req, res) => {
-    Post.findOne({ _id: req.params.id })
-      .then((singlePost) => {
-        console.log(singlePost);
-        res.json(singlePost);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Finding post failed.", err });
-      });
-  },
+    // get a post -- complete
+    onePost: (req, res) => {
+        Post.findOne({ _id: req.params.id })
+            .then((singlePost) => {
+                console.log(singlePost);
+                res.json(singlePost);
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Finding post failed.", err });
+            });
+    },
 
-  // get timeline posts
-  allPosts: (req, res) => {},
+    // get timeline posts
+    allPosts: (req, res) => {
+        User.findById(req.body.userId)
+            .then((foundUser) => {
+                console.log("foundUser: ", foundUser)
+                Post.find({ user: foundUser._id })
+                    .then((userFoundPost) => {
+                        Promise.all(foundUser.following.map((friendId) => {
+                            Post.find({ user: friendId })
+                                .then((timelinePost) => {
+                                    console.log("TimeLIne: ", timelinePost)
+                                    res.json(userFoundPost.concat(...timelinePost))
+                                })
+                                .catch(err => console.log(err))
+                        })
+                        )
+                    }).catch(err => console.log(err))
+            }).catch(err => console.log(err))
+    },
 
-  // added for development testing -- complete
-  everyPost: (req, res) => {
-    Post.find()
-      .then((catchThemAll) => {
-        console.log(catchThemAll);
-        res.json(catchThemAll);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Find every post failed.", err });
-      });
-  },
+    
+    // added for development testing -- complete
+    everyPost: (req, res) => {
+        Post.find()
+            .then((catchThemAll) => {
+                console.log(catchThemAll);
+                res.json(catchThemAll);
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Find every post failed.", err });
+            });
+    },
 
-  //All this was added by Jackson 3/29 @ 4:30
-  //This doesnt work. keep getting TypeError
-  //originally this was built with an if check, that didnt work either
-  userPosts: (req, res) => {
-    User.findOne({ username: req.params.username })
+    //All this was added by Jackson 3/29 @ 4:30
+    //This doesnt work. keep getting TypeError
+    //originally this was built with an if check, that didnt work either
+    userPosts: (req, res) => {
+        User.findOne({ username: req.params.username })
+        .then((userLoggedIn) => {
+                Post.find({ user: userLoggedIn.id })
+                    .populate("user", "username")
+                    .then((allPostForUser) => {
+                        console.log(allPostForUser);
+                        res.json(allPostForUser);
+                    })
+                    .catch((err) => res.status(400).json(err));
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(400).json({ message: "Update failed.", err });
+            });
+    }
 
-      .then((userLoggedIn) => {
-        Post.find({ user: userLoggedIn._id })
-          .populate("user", "username")
-          .then((allPostForUser) => {
-            console.log(allPostForUser);
-            res.json(allPostForUser);
-          })
-          .catch((err) => res.status(400).json(err));
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(400);
-      })
-
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Update failed.", err });
-      });
-  },
-
-  // delete a post --- complete
-  deletePost: (req, res) => {
-    Post.deleteOne({ _id: req.params.id })
-      .then((deletedPost) => {
-        console.log(deletedPost);
-        res.json({ message: "Post deleted" });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Delete post failed.", err });
-      });
-  },
-
-  // like or dislike a post -- not working -- creates new object named list
-  // likeUnlikePost: (req, res) => {
-  //   Post.findById({ _id: req.params.id })
-  //     .then((list) => {
-  //       console.log(list);
-  //       if (!likes.includes(req.body.userId)) {
-  //         likes.push(req.body.userId);
-  //         console.log(list);
-  //         res.json({ message: "Post liked", list });
-  //       } else {
-  //         list.likes.pull(req.body.userId); // should be pop?
-  //         console.log(list);
-  //         res.json({ message: "Post unliked", list });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       res.status(400).json({ message: "Like / unlike failed.", err });
-  //     });
-  // },
-
-  // get a post -- complete
-  onePost: (req, res) => {
-    Post.findOne({ _id: req.params.id })
-      .then((singlePost) => {
-        console.log(singlePost);
-        res.json(singlePost);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Finding post failed.", err });
-      });
-  },
-
-  // get timeline posts
-  allPosts: (req, res) => {},
-
-  // added for development testing -- complete
-  everyPost: (req, res) => {
-    Post.find()
-      .then((catchThemAll) => {
-        console.log(catchThemAll);
-        res.json(catchThemAll);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json({ message: "Find every post failed.", err });
-      });
-  },
-
-  //All this was added by Jackson 3/29 @ 4:30
-  //This doesnt work. keep getting TypeError
-  //originally this was built with an if check, that didnt work either
-  userPosts: (req, res) => {
-    User.findOne({ username: req.params.username })
-
-      .then((userLoggedIn) => {
-        Post.find({ user: userLoggedIn._id })
-          .populate("user", "username")
-          .then((allPostForUser) => {
-            console.log(allPostForUser);
-            res.json(allPostForUser);
-          })
-          .catch((err) => res.status(400).json(err));
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(400);
-      });
-  },
-  // Post.find({ userId: req.jwtpayload.id })
-  //     .populate('userId', 'username')
-  //     .then((thisUsersPosts) => {
-  //         console.log(thisUsersPosts)
-  //         res.json(thisUsersPosts)
-  //     })
-  //     .catch(err => {
-  //         console.log(err)
-  //         res.status(400).json(err)
-  //     })
+    // Post.find({ userId: req.jwtpayload.id })
+    //     .populate('userId', 'username')
+    //     .then((thisUsersPosts) => {
+    //         console.log(thisUsersPosts)
+    //         res.json(thisUsersPosts)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         res.status(400).json(err)
+    //     })
 };
