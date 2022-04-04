@@ -43,7 +43,7 @@ const Feed = (props) => {
         .catch((err) => {
           console.log(err);
         });
-  }, [username, user._id, posts]);
+  }, [username, user._id]);
 
   return (
     <div className="feed">

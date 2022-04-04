@@ -16,15 +16,6 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.use(cookieParser());
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // cb stand for callback
-    cb(null, "public/images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
 // filename
 // A function that determines the name of the uploaded file. If nothing is passed,
 // Multer will generate a 32 character pseudorandom hex string with no extension.
@@ -36,7 +27,6 @@ const storage = multer.diskStorage({
 
 // null is for the error, destination
 
-const upload = multer({ storage });
 
 // upload.single
 // Returns middleware that processes a single file associated with the given form field.
@@ -48,13 +38,6 @@ const upload = multer({ storage });
 // Returns middleware that processes a single file associated with the given form field.
 // The Request object will be populated with a file object containing information about the processed file.
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  try {
-    res.json("File uploaded");
-  } catch (err) {
-    console.log("Error uploading filel", err);
-  }
-});
 
 // Config
 

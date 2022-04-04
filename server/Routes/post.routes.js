@@ -1,7 +1,16 @@
 const { authenticate } = require("../config/jwt.config");
 const PostController = require("../Controllers/post.controller");
-const Post = require("../Models/post.model");
-const User = require("../Models/user.model");
+const multer = require('multer');
+
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, callback) => {
+      callback(null, './public/images')
+  },
+  filename: (req, file, callback) => {
+      callback(null, file.originalname);
+  }
+});
+const upload = multer({ storage: fileStorageEngine })
 
 module.exports = (app) => {
   // create a post
@@ -27,9 +36,9 @@ module.exports = (app) => {
 
   //get all posts from one user -- added from video3 mark: ~ 41mins
   //DL: Updated and Fix on Postman
-  
+
   app.get("/api/posts/profile/:username", authenticate, PostController.userPosts)
-  
+
   /* app.get("/api/posts/profile/:username", async (req, res) => {
   //   try {
   //     const user = await User.findOne({ username: req.params.username });
@@ -40,4 +49,6 @@ module.exports = (app) => {
   //     console.log(err);
   //   }
   // });*/
+
+  app.post("/api/posts/upload", upload.single('image'), PostController.upload);
 };

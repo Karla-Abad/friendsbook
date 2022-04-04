@@ -1,8 +1,9 @@
 import "./share.css";
 import { PermMedia, Label, Room, EmojiEmotions } from "@material-ui/icons";
 import { AuthContext } from "../../context/AuthContext";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import axios from "axios";
+import FormData from 'form-data';
 
 const Share = (props) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -16,9 +17,20 @@ const Share = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = new FormData()
+    data.append("image", file);
+
+    fetch("http://localhost:8000/api/posts/upload", {
+      method: "POST",
+      body: data
+    })
+      .then(() => console.log("File successfully uploaded!"))
+      .catch(err => console.log(err))
+
     const newPost = {
       user: user.userId,
       desc: desc.current.value,
+      img: file.name,
     };
     console.log(newPost);
     axios
