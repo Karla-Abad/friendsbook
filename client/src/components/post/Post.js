@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { format } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
+
 //^^^: To install the above library run:  npm install timeago.js
 
 const Post = (props) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const SIF = process.env.REACT_APP_SERVER_FOLDER;
   //^^link to our path to our temp photos/stock photos
   //We will use this Folder URL to have the app find the photos from our dummydata file from different components.-Karla
   //Create a .env file inside client folder with this: REACT_APP_PUBLIC_FOLDER = http://localhost:3000/assets/
@@ -38,6 +40,7 @@ const Post = (props) => {
       .catch((err) => {
         console.log(err);
       });
+
   }, [post.user]);
 
   const likeHandler = () => {
@@ -65,6 +68,7 @@ const Post = (props) => {
       })
       .catch((err) => console.log(err));
   };
+
 
   return (
     <div className="post">
@@ -104,7 +108,7 @@ const Post = (props) => {
 
           {/* NOTE: I added: "posts/" since in Postman, i put the name of a photo from one of our assests. likely will have to edit this later.  */}
           {/* <img className="postImg" src={PF + "posts/post2.jpg"} alt="" /> */}
-          <img className="postImg" src={PF + post.img} alt="" />
+          <img className="postImg" src={`${PF}${post.img}`} alt="" />
         </div>
 
         <div className="postBottom">

@@ -117,7 +117,7 @@ module.exports = {
             }).catch(err => console.log(err))
     },
 
-    
+
     // added for development testing -- complete
     everyPost: (req, res) => {
         Post.find()
@@ -149,7 +149,7 @@ module.exports = {
                 console.log(err);
                 res.status(400).json({ message: "Update failed.", err });
             });
-    }
+    },
 
     // Post.find({ userId: req.jwtpayload.id })
     //     .populate('userId', 'username')
@@ -161,4 +161,11 @@ module.exports = {
     //         console.log(err)
     //         res.status(400).json(err)
     //     })
+    upload: (req, res) => {
+        try {
+          res.json("File uploaded!");
+        } catch (err) {
+          console.log("Error uploading file!", err);
+        }
+      }
 };
