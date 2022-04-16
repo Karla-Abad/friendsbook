@@ -1,24 +1,36 @@
-import { Person } from "@material-ui/icons";
-import Login from "./pages/login/Login";
-import Profile from "./pages/profile/Profile";
-import Register from "./pages/register/Register";
+// import { Person } from "@material-ui/icons";
+// import Profile from "./pages/profile/Profile";
 import Home from "./pages/home/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NewReg from "./pages/register/NewReg";
+import NewLog from "./pages/login/NewLog";
+import NewProfile from "./pages/profile/NewProfile";
+
+
+// import Login from "./pages/login/Login";
+// import Register from "./pages/register/Register";
+// import { useContext } from "react";
+// import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={user ? <Home /> : <Login />} />
+        <Route path="/" element={<NewLog />} exact />
+        <Route path="/register" element={<NewReg />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile/:username" element={<NewProfile />} />
+
+
+        {/* <Route path="/" element={user ? <Home /> : <Login />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
-        />
-        <Route path="/profile/:username" element={<Profile />} />
+        /> */}
+
+
       </Routes>
     </BrowserRouter>
     //Logic for routes:

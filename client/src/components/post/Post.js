@@ -18,7 +18,7 @@ const Post = (props) => {
 
   const { post, removeFromDom } = props;
 
-  const [like, setLike] = useState(post.likes.length);
+  const [like, setLike] = useState(post.likes);
   const [isLiked, setIsLiked] = useState(false);
 
   const [user, setUser] = useState({});
