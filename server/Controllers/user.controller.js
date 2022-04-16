@@ -3,24 +3,24 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  register: (req, res) => {
-    const user = new User(req.body);
+  register:
+    (req, res) => {
+      const user = new User(req.body);
 
-    user
-      .save()
-      .then((newUser) => {
-        console.log(newUser);
-        console.log("Successfully Registered");
-        res.json({
-          successMessage: "Thank you for registering",
-          user: newUser,
+      user.save()
+        .then((newUser) => {
+          console.log(newUser);
+          console.log("Successfully Registered");
+          res.json({
+            successMessage: "Thank you for registering",
+            user: newUser,
+          });
+        })
+        .catch((err) => {
+          console.log("Register not successfull!");
+          res.status(400).json(err);
         });
-      })
-      .catch((err) => {
-        console.log("Register not successfull!");
-        res.status(400).json(err);
-      });
-  },
+    },
 
   login: (req, res) => {
     User.findOne({ email: req.body.email })
@@ -165,29 +165,29 @@ module.exports = {
   // follow a user
   followUser: (req, res) => {
     const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
-    const user = User.findById({_id: req.params.id})
-    const currentUser = User.findById({_id: decodedJwt.payload.id})
+    const user = User.findById({ _id: req.params.id })
+    const currentUser = User.findById({ _id: decodedJwt.payload.id })
 
-    Promise.all([user,currentUser])
-      .then(([foundUser,loggedInUser])=>{
-        if(!foundUser.followers.includes(decodedJwt.payload.id)){
+    Promise.all([user, currentUser])
+      .then(([foundUser, loggedInUser]) => {
+        if (!foundUser.followers.includes(decodedJwt.payload.id)) {
           // console.log("payload.id", {_id:decodedJwt.payload.id} )
           // console.log("found User: ",foundUser)
           // console.log("logged In user: ",loggedInUser)
-          foundUser.updateOne({ $push: {followers: decodedJwt.payload.id} })
-            .then(()=>console.log("Found User Follwers: ",foundUser.followers))
-            .catch((err)=>console.log("Something went wrong ",err))
+          foundUser.updateOne({ $push: { followers: decodedJwt.payload.id } })
+            .then(() => console.log("Found User Follwers: ", foundUser.followers))
+            .catch((err) => console.log("Something went wrong ", err))
           // console.log("follower", decodedJwt.payload.id)
-          loggedInUser.updateOne({ $push: { following: req.params.id}})
-            .then(()=>console.log("Logged In User Followings:",loggedInUser.following))
-            .catch(err=>console.log("Something went wrong ",err))
+          loggedInUser.updateOne({ $push: { following: req.params.id } })
+            .then(() => console.log("Logged In User Followings:", loggedInUser.following))
+            .catch(err => console.log("Something went wrong ", err))
           // console.log("following", req.params.id)
           res.status(200).json("Followed User")
         } else {
           res.status(403).json("Allready Following this user.")
         }
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log("Something Went Wrong.")
         res.status(500).json(err)
       })
@@ -197,22 +197,22 @@ module.exports = {
   // unfollow a user
   unfollowUser: (req, res) => {
     const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
-    const user = User.findById({_id: req.params.id})
-    const currentUser = User.findById({_id: decodedJwt.payload.id})
+    const user = User.findById({ _id: req.params.id })
+    const currentUser = User.findById({ _id: decodedJwt.payload.id })
 
-    Promise.all([user,currentUser])
-      .then(([foundUser,loggedInUser])=>{
-        if(foundUser.followers.includes(decodedJwt.payload.id)){
-          foundUser.updateOne({ $pull: {followers: decodedJwt.payload.id} })
-            .then(()=>console.log("Found User Follwers: ",foundUser.followers))
-            .catch((err)=>console.log("Something went wrong ",err))
-          loggedInUser.updateOne({ $pull: { following: req.params.id}})
-            .then(()=>console.log("Logged In User Followings:",loggedInUser.following))
-            .catch(err=>console.log("Something went wrong ",err))
+    Promise.all([user, currentUser])
+      .then(([foundUser, loggedInUser]) => {
+        if (foundUser.followers.includes(decodedJwt.payload.id)) {
+          foundUser.updateOne({ $pull: { followers: decodedJwt.payload.id } })
+            .then(() => console.log("Found User Follwers: ", foundUser.followers))
+            .catch((err) => console.log("Something went wrong ", err))
+          loggedInUser.updateOne({ $pull: { following: req.params.id } })
+            .then(() => console.log("Logged In User Followings:", loggedInUser.following))
+            .catch(err => console.log("Something went wrong ", err))
           res.status(200).json("User Unfollowed")
-        } else {res.status(403).json("Allready Not Following this user.")}
+        } else { res.status(403).json("Allready Not Following this user.") }
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log("Something Went Wrong.")
         res.status(500).json(err)
       })

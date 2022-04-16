@@ -23,13 +23,13 @@ const UserSchema = new mongoose.Schema(
       minLength: [8, "Password MUST be at least 8 characters"],
     },
 
-    profilePicture:{
-        data: Buffer,
-        contentType:String
+    profilePicture: {
+      data: Buffer,
+      contentType: String
     },
-    coverPicture:{
-        data: Buffer,
-        contentType:String
+    coverPicture: {
+      data: Buffer,
+      contentType: String
 
     },
     followers: {
@@ -79,13 +79,16 @@ UserSchema.pre("validate", function (next) {
   next();
 });
 
+
 UserSchema.pre("save", function (next) {
   console.log("In pre save");
 
-  bcrypt.hash(this.password, 10).then((hashedPassword) => {
-    this.password = hashedPassword;
-    next();
-  });
+  bcrypt.hash(this.password, 10)
+    .then((hashedPassword) => {
+      this.password = hashedPassword;
+      next();
+    })
+    .catch(err => console.log(err)) //JM added on 4/15
 });
 
 const User = mongoose.model("User", UserSchema);

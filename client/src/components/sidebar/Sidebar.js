@@ -25,7 +25,7 @@ const Sidebar = (props) => {
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">
-            <Link to='/' style={{ textDecoration: "none" }}>
+            <Link to='/home' style={{ textDecoration: "none" }}>
               <RssFeed className="sidebarIcon" />
               <span className="sidebarListItemText">Feed</span>
             </Link>

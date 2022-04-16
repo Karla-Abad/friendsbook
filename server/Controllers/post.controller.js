@@ -136,7 +136,7 @@ module.exports = {
     //originally this was built with an if check, that didnt work either
     userPosts: (req, res) => {
         User.findOne({ username: req.params.username })
-        .then((userLoggedIn) => {
+            .then((userLoggedIn) => {
                 Post.find({ user: userLoggedIn.id })
                     .populate("user", "username")
                     .then((allPostForUser) => {
@@ -163,9 +163,9 @@ module.exports = {
     //     })
     upload: (req, res) => {
         try {
-          res.json("File uploaded!");
+            res.json("File uploaded!");
         } catch (err) {
-          console.log("Error uploading file!", err);
+            console.log("Error uploading file!", err);
         }
-      }
+    }
 };

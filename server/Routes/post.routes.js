@@ -4,10 +4,10 @@ const multer = require('multer');
 
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, callback) => {
-      callback(null, './public/images')
+    callback(null, './public/images')
   },
   filename: (req, file, callback) => {
-      callback(null, file.originalname);
+    callback(null, file.originalname);
   }
 });
 const upload = multer({ storage: fileStorageEngine })
