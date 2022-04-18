@@ -65,12 +65,13 @@ const NewProfile = (props) => {
                             <h4 className="profileInfoName">{username}</h4>
                             <span className="profileInfoDesc">Hello my friends!</span>
                         </div>
+                        
                     </div>
                     <div className="profileRightBottom">
                         {/* Note that currently the feed user photos are not loading. this will be updated once pulling data from server-side. -jackson  */}
                         {/* <Feed username={username} /> */}
                         <NewFeed user={user} posts={posts} setPosts={setPosts} profile='true' />
-                        <Rightbar user={user} />
+                        <Rightbar user={user} profile = "true" />
                     </div>
                 </div>
             </div>

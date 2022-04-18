@@ -9,7 +9,7 @@ const NewFeed = (props) => {
     const { posts, setPosts, user } = props
 
     const removeFromDom = (postId) => {
-        setPosts(posts.filter((post) => post._id !== postId));
+        setPosts(posts.filter((post) => post._id !== postId)) 
     };
 
     return (

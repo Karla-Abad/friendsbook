@@ -23,6 +23,8 @@ const NewPost = (props) => {
                 // console.log('i am here')
                 // console.log(res.data);
                 setUser(res.data);
+                // console.log(user._id)
+                // console.log(post.user)
             })
             .catch((err) => {
                 console.log(err);
@@ -37,14 +39,17 @@ const NewPost = (props) => {
         setIsLiked(!isLiked);
     }
 
+    
     const handleDelete = (postId) => {
         axios.delete("http://localhost:8000/api/posts/" + postId)
             .then((res) => {
                 removeFromDom(postId);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
     }
 
+    // console.log(`This is user._id: ${user._id}`)
+    // console.log(`This is posts.user: ${post.user}`)
 
     return (
         <>
@@ -68,16 +73,15 @@ const NewPost = (props) => {
 
                             <span className="postDate">{format(post.createdAt)}</span>
                         </div>
-
+                        
                         <div className="postTopRight">
-                        {user._id === posts.user
-                            ?<button
-                                onClick={(e) => handleDelete(post._id)}
-                                className="deleteButton"
+                            {user._id === posts.user &&
+                            <button
+                            onClick={(e) => handleDelete(post._id)}
+                            className="deleteButton"
                             >
-                                <Backspace />
-                            </button>
-                            : null
+                            <Backspace  />
+                        </button>
                         }
                         </div>
                     </div>

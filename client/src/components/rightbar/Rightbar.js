@@ -3,11 +3,13 @@ import "./rightbar.css";
 //delete this import once we have real data
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
+import NewProfile from "../../pages/profile/NewProfile";
 
-const Rightbar = ({ profile }) => {
+const Rightbar = ({ profile, user }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   //^^link to our path to our temp photos/stock photos (PF = public folder)
   //Updated HomeRightBar to display data from dummyData.js Delete imports once we have our server/db up and running: -Jackson
+  
 
   const HomeRightbar = () => {
     return (
@@ -39,15 +41,18 @@ const Rightbar = ({ profile }) => {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Current City:</span>
-            <span className="rightbarInfoValue">Miami</span>
+            <span className="rightbarInfoValue">{user.city? user.city: "Add your current city"}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Hometown:</span>
-            <span className="rightbarInfoValue">Guayaquil</span>
+            <span className="rightbarInfoValue">{user.from? user.from: "Add your hometown."}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Relationship status:</span>
-            <span className="rightbarInfoValue">Married</span>
+            <span className="rightbarInfoValue">{user.relationship? user.relationship: "Add your relationship status."}</span>
+          </div>
+          <div className="editDiv">
+            <button className="editAccount">Edit Account</button>
           </div>
         </div>
         <h4 className="rightbarTitle">User friends</h4>
