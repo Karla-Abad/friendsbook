@@ -36,7 +36,7 @@ const NewProfile = (props) => {
         axios.get(`http://localhost:8000/api/posts/profile/${username}`, { withCredentials: true })
             .then((res) => {
                 console.log(res.data)
-                setPosts(res.data)
+                setPosts(res.data);
             })
             .catch(err => console.log(err))
     }, [username])

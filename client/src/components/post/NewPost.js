@@ -11,7 +11,7 @@ const NewPost = (props) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const SIF = process.env.REACT_APP_SERVER_FOLDER;
 
-    const { post, removeFromDom, profile } = props;
+    const { post, removeFromDom, profile, posts } = props;
 
     const [user, setUser] = useState({});
     const [like, setLike] = useState('');
@@ -64,20 +64,21 @@ const NewPost = (props) => {
                                 />
                             </Link>
                             {/* This is code to get username to display on the profile page. <span className="postUsername">{post?.user.username}</span> */}
-                            <span className="postUsername">{user.username}</span>
+                            <span className="postUsername">{user.username ? user.username : post.user.username}</span>
 
                             <span className="postDate">{format(post.createdAt)}</span>
                         </div>
 
                         <div className="postTopRight">
-
-                            <button
+                        {user._id === posts.user
+                            ?<button
                                 onClick={(e) => handleDelete(post._id)}
                                 className="deleteButton"
                             >
                                 <Backspace />
                             </button>
-
+                            : null
+                        }
                         </div>
                     </div>
 
