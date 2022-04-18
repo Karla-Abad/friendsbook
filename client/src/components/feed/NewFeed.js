@@ -17,9 +17,11 @@ const NewFeed = (props) => {
             <div className="feedWrapper">
 
                 <NewShare setPosts={setPosts} posts={posts} user={user} />
-                {posts.map((p) => (
-                    <NewPost key={p._id} removeFromDom={removeFromDom} post={p} />
+                <div className="flex">
+                { posts.map((p) => (
+                    <NewPost key={p._id} removeFromDom={removeFromDom} post={p} posts = {posts} />
                 ))}
+                </div>
             </div>
         </div>
     );

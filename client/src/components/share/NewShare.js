@@ -32,7 +32,7 @@ const NewShare = (props) => {
             .then((res) => {
                 console.log(res.data)
                 setPosts((prevPosts) => {
-                    return [newPost, ...prevPosts]
+                    return [...prevPosts,, newPost]
                 })
 
                 setText('')

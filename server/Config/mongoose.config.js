@@ -1,14 +1,14 @@
 const mongoose = require("mongoose")
 
-mongoose.connect(`mongodb://127.0.0.1/friendsBookDB`, {
+mongoose.connect(`mongodb://127.0.0.1/friendsbookDB`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
     .then(() => {
-        console.log(`You have landed on the friendsBookDB database!`)
+        console.log(`You have landed on the friendsbookDB database!`)
     })
     .catch((err) => {
-        console.log(`We made a wrong turn trying to get to the friendsBookDB database!`)
+        console.log(`We made a wrong turn trying to get to the friendsbookDB database!`)
     })
 
 
