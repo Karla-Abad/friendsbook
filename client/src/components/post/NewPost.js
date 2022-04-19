@@ -23,13 +23,10 @@ const NewPost = (props) => {
                 // console.log('i am here')
                 // console.log(res.data);
                 setUser(res.data);
-                // console.log(user._id)
-                // console.log(post.user)
             })
             .catch((err) => {
                 console.log(err);
             });
-
     }, [post.user]);
 
 
@@ -48,9 +45,6 @@ const NewPost = (props) => {
             .catch((err) => console.log(err))
     }
 
-    // console.log(`This is user._id: ${user._id}`)
-    // console.log(`This is posts.user: ${post.user}`)
-
     return (
         <>
             <div className="post" key={post._id}>
@@ -62,7 +56,7 @@ const NewPost = (props) => {
                                     className="postProfileImg"
                                     src={
                                         user.profilePicture
-                                            ? PF + user.profilePicture
+                                            ? user.profilePicture
                                             : PF + "users/noAvatar.png"
                                     }
                                     alt=""

@@ -1,4 +1,5 @@
 import "./rightbar.css";
+import { useNavigate } from "react-router";
 
 //delete this import once we have real data
 import { Users } from "../../dummyData";
@@ -9,7 +10,7 @@ const Rightbar = ({ profile, user }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   //^^link to our path to our temp photos/stock photos (PF = public folder)
   //Updated HomeRightBar to display data from dummyData.js Delete imports once we have our server/db up and running: -Jackson
-  
+  const navigate = useNavigate()
 
   const HomeRightbar = () => {
     return (
@@ -52,7 +53,7 @@ const Rightbar = ({ profile, user }) => {
             <span className="rightbarInfoValue">{user.relationship? user.relationship: "Add your relationship status."}</span>
           </div>
           <div className="editDiv">
-            <button className="editAccount">Edit Account</button>
+            <button className="editAccount" onClick={(e)=> navigate(`/editAccount/${user._id}`)} >Edit Account</button>
           </div>
         </div>
         <h4 className="rightbarTitle">User friends</h4>

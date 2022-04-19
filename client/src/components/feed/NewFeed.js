@@ -6,7 +6,7 @@ import NewShare from "../share/NewShare";
 
 const NewFeed = (props) => {
 
-    const { posts, setPosts, user } = props
+    const { posts, setPosts, user, setUser } = props
 
     const removeFromDom = (postId) => {
         setPosts(posts.filter((post) => post._id !== postId)) 
@@ -19,7 +19,7 @@ const NewFeed = (props) => {
                 <NewShare setPosts={setPosts} posts={posts} user={user} />
                 <div className="flex">
                 { posts.map((p) => (
-                    <NewPost key={p._id} removeFromDom={removeFromDom} post={p} posts = {posts} />
+                    <NewPost key={p._id} removeFromDom={removeFromDom} post={p} posts = {posts} setUser={setUser} user = {user} />
                 ))}
                 </div>
             </div>

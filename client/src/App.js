@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NewReg from "./pages/register/NewReg";
 import NewLog from "./pages/login/NewLog";
 import NewProfile from "./pages/profile/NewProfile";
+import EditAcount from "./pages/editAccount/EditAccount";
 
 
 // import Login from "./pages/login/Login";
@@ -21,7 +22,7 @@ const App = () => {
         <Route path="/register" element={<NewReg />} />
         <Route path="/home" element={<Home />} />
         <Route path="/profile/:username" element={<NewProfile/>} />
-
+        <Route path="/editAccount/:id" element = {<EditAcount/>} />
 
         {/* <Route path="/" element={user ? <Home /> : <Login />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
