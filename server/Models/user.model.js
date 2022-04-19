@@ -57,8 +57,9 @@ const UserSchema = new mongoose.Schema(
       maxLength: [50, "Max characters is 50"],
     },
     relationship: {
-      type: Number,
-      enum: [1, 2, 3],
+      type: String,
+      enum: ["Single", "Married", "It's complicated"],
+      default: "Select one",
     },
   },
   { timestamps: true }

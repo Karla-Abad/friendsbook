@@ -1,0 +1,39 @@
+.loginLeft,
+.loginRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.accountDetails{
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.updateInput {
+  height: 25px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 14px;
+  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.updateInput:focus {
+  outline: none;
+}
+
+.updateButton {
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1775ee;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}

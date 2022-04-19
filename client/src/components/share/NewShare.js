@@ -24,6 +24,7 @@ const NewShare = (props) => {
 
         const newPost = {
             user: user._id,
+            profilePicture: user.profilePicture,
             desc: text,
             img: file.name
         }
@@ -49,7 +50,7 @@ const NewShare = (props) => {
                         className="shareProfileImg"
                         src={
                             user.profilePicture
-                                ? PF + user.profilePicture
+                                ? user.profilePicture
                                 : PF + "users/noAvatar.png"
                         }
                         alt=""

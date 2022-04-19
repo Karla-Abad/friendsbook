@@ -1,6 +1,4 @@
 import "./profile.css";
-// import Feed from "../../components/feed/Feed";
-// import Topbar from "../../components/topbar/Topbar";
 import NewTopBar from "../../components/topbar/NewTopBar";
 import NewFeed from "../../components/feed/NewFeed";
 import Rightbar from "../../components/rightbar/Rightbar";
@@ -70,7 +68,7 @@ const NewProfile = (props) => {
                     <div className="profileRightBottom">
                         {/* Note that currently the feed user photos are not loading. this will be updated once pulling data from server-side. -jackson  */}
                         {/* <Feed username={username} /> */}
-                        <NewFeed user={user} posts={posts} setPosts={setPosts} profile='true' />
+                        <NewFeed user={user} setUser={setUser} posts={posts} setPosts={setPosts} profile='true' />
                         <Rightbar user={user} profile = "true" />
                     </div>
                 </div>

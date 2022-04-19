@@ -2,11 +2,12 @@ import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const NewTopBar = (props) => {
 
     const navigate = useNavigate();
+    const username = useParams().username;
 
     const { user } = props;
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -59,7 +60,7 @@ const NewTopBar = (props) => {
                     <img
                         src={
                             user.profilePicture
-                                ? PF + user.profilePicture
+                                ? user.profilePicture
                                 : PF + "users/noAvatar.png"
                         }
                         alt=""
