@@ -93,23 +93,28 @@ module.exports = {
   },
 
   // update user
-  updateUser: (req, res) => {
-    const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
-    User.findOneAndUpdate({ _id: decodedJwt.payload.id }, req.body, {
-      new: true,
-      runValidators: true,
-    })
-      .then((updatedUser) => {
-        console.log(updatedUser);
-        res.json(updatedUser);
-      })
-      .catch((err) => {
-        console.log("Failed to update user");
-        res
-          .status(400)
-          .json({ message: "Something went wrong with update.", error: err });
-      });
+  updateUser: (req, res)=> {
+    User.findOneAndUpdate({_id: req.params.id}, req.body, {new:true, runValidators: true})
+    .then(updatedUser => res.json(updatedUser))
+    .catch(err => res.status(400).json({err}))
   },
+  // updateUser: (req, res) => {
+  //   const decodedJwt = jwt.decode(req.cookies.usertoken, { complete: true });
+  //   User.findOneAndUpdate({ _id: decodedJwt.payload.id }, req.body, {
+  //     new: true,
+  //     runValidators: true,
+  //   })
+  //     .then((updatedUser) => {
+  //       console.log(updatedUser);
+  //       res.json(updatedUser);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Failed to update user");
+  //       res
+  //         .status(400)
+  //         .json({ message: "Something went wrong with update.", error: err });
+  //     });
+  // },
 
   // delete user -- in progress -- currently working -- retest to validate
   deleteUser: (req, res) => {
