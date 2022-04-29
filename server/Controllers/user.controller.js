@@ -223,4 +223,13 @@ module.exports = {
       })
 
   },
+
+  //Upload profile picture
+  upload: (req, res) => {
+    try {
+        res.json("File uploaded!");
+    } catch (err) {
+        console.log("Error uploading file!", err);
+    }
+},
 };
