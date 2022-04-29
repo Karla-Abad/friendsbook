@@ -11,7 +11,7 @@ const EditAccount = ()=> {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const navigate = useNavigate()
     const id = useParams().id;
-    const [profilePicture, setProfilePicture] = useState('')
+    const [file, setFile] = useState('')
     const [coverPicture, setCoverPicture] = useState('')
 
     // const username = useParams().username;
@@ -40,14 +40,28 @@ const EditAccount = ()=> {
     const updateAccount = (e)=> {
         e.preventDefault();
         const data = new FormData()
-        data.append("image", profilePicture);
+        data.append("image", file);
+
+        const coverPictureData = new FormData()
+        coverPictureData.append("coverPicture", coverPicture);
+
         
+        fetch(`http://localhost:8000/api/users/upload`, { method: 'POST', body: data })
+            .then(() => console.log('File Successfully uploaded'))
+            .catch(err => console.log(err))
+
+            fetch(`http://localhost:8000/api/users/coverPicture`, { method: 'POST', body: coverPictureData })
+            .then(() => console.log('File Successfully uploaded'))
+            .catch(err => console.log(err))  
+
+            
         axios
         .put("http://localhost:8000/api/users/"+id, {
             city: user.city,
             from: user.from,
             relationship:user.relationship,
-            profilePicture: profilePicture.name
+            profilePicture: `${PF}/${file.name}`,
+            coverPicture: `${PF}/${coverPicture.name}`
         })
         .then((res)=> {
             console.log(res);
@@ -75,7 +89,10 @@ const EditAccount = ()=> {
                             />
                             <img
                                 className="profileUserImg"
-                                src={user.profilePicture || `${PF}users/noAvatar.png`}
+                                src={
+                                    user.profilePicture
+                                    ? user.profilePicture
+                                    : PF + "users/noAvatar.png"}
                                 alt=""
                             />
                             
@@ -117,18 +134,18 @@ const EditAccount = ()=> {
                                                 id="file"
                                                 accept=".png,.jpeg,.jpg"
                                                 name="profilePicture"  
-                                                onChange={(e) => setProfilePicture(e.target.files[0])} //[0] to just take one file at the time and not multiple files.-Karla
+                                                onChange={(e) => setFile(e.target.files[0])} //[0] to just take one file at the time and not multiple files.-Karla
                                             />
                                         </label>
                                         </div>
                                         <div>
-                                        <label htmlFor="file" className="shareOption">
+                                        <label htmlFor="coverPicture" className="shareOption">
                                             <PermMedia htmlColor="green" className="shareIcon" />
                                             <span className="shareOptionText">Cover Picture</span>
                                             <input
                                                 type="file"
                                                 style={{ display: "none" }}
-                                                id="file"
+                                                id="coverPicture"
                                                 accept=".png,.jpeg,.jpg"
                                                 name="coverPicture"
                                                 onChange={(e) => setCoverPicture(e.target.files[0])} //[0] to just take one file at the time and not multiple files.-Karla

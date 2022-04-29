@@ -19,7 +19,7 @@ const NewFeed = (props) => {
                 <NewShare setPosts={setPosts} posts={posts} user={user} />
                 <div className="flex">
                 { posts.map((p) => (
-                    <NewPost key={p._id} removeFromDom={removeFromDom} post={p} posts = {posts} setUser={setUser} user = {user} />
+                    <NewPost key={p._id} user={user} removeFromDom={removeFromDom} post={p} posts = {posts} setUser={setUser}  />
                 ))}
                 </div>
             </div>

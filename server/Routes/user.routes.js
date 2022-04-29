@@ -1,5 +1,16 @@
 const UserController = require("../Controllers/user.controller");
 const { authenticate } = require("../config/jwt.config");
+const multer = require('multer');
+
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, './public/images')
+  },
+  filename: (req, file, callback) => {
+    callback(null, file.originalname);
+  }
+});
+const upload = multer({ storage: fileStorageEngine })
 
 module.exports = (app) => {
 
@@ -33,5 +44,10 @@ module.exports = (app) => {
     // unfollow a user
     app.put("/api/users/:id/unfollow", UserController.unfollowUser)
 
+    //upload profilePicture
+    app.post("/api/users/upload", upload.single('image'), UserController.upload);
+
+    //upload coverPicture
+    app.post("/api/users/coverPicture", upload.single('coverPicture'), UserController.upload);
 }
 
